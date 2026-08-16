@@ -6,7 +6,7 @@ export interface ArchitecturalSvgOptions {
   height?: number;
   title: string;
   subtitle?: string;
-  theme?: 'dark' | 'light' | 'stone' | 'olive' | 'accent' | 'hero';
+  theme?: 'dark' | 'light' | 'stone' | 'olive' | 'accent' | 'hero' | 'attic';
   pattern?: 'blueprint' | 'elevation' | 'interior' | 'wood' | 'stone';
 }
 
@@ -130,6 +130,52 @@ export function createArchitecturalSvgDataUrl(options: ArchitecturalSvgOptions):
 </svg>
     `.trim();
     return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(heroSvg)}`;
+  }
+
+  if (options.theme === 'attic') {
+    // Rich Warm Timber Attic Conversion Architectural Image
+    const atticSvg = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
+  <defs>
+    <linearGradient id="atticSky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141C16" />
+      <stop offset="100%" stop-color="#222B24" />
+    </linearGradient>
+    <linearGradient id="rooflightGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8E7" stop-opacity="0.9" />
+      <stop offset="50%" stop-color="#E5C799" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#1B231D" stop-opacity="0.1" />
+    </linearGradient>
+    <linearGradient id="timberGrain" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C5A880" stop-opacity="0.4" />
+      <stop offset="50%" stop-color="#8E877D" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#C5A880" stop-opacity="0.4" />
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#atticSky)" />
+
+  <!-- Pitched Roof Pitch & Exposed Timber Rafters -->
+  <polygon points="0,0 ${width},0 ${width},700 0,500" fill="#1B231D" />
+  
+  <!-- Bank of 4 Velux Roof Windows in Roof Pitch -->
+  <g transform="translate(300, 80)">
+    <polygon points="50,0 250,0 200,320 0,320" fill="url(#rooflightGlow)" stroke="#C5A880" stroke-width="4" />
+    <polygon points="280,0 480,0 430,320 230,320" fill="url(#rooflightGlow)" stroke="#C5A880" stroke-width="4" />
+    <polygon points="510,0 710,0 660,320 460,320" fill="url(#rooflightGlow)" stroke="#C5A880" stroke-width="4" />
+    <polygon points="740,0 940,0 890,320 690,320" fill="url(#rooflightGlow)" stroke="#C5A880" stroke-width="4" />
+  </g>
+
+  <!-- Master Bedroom Suite Bed & Custom Joinery Eaves -->
+  <rect x="250" y="550" width="700" height="250" fill="#141C16" stroke="#C5A880" stroke-dasharray="6 4" stroke-width="1.5" rx="8" />
+  <rect x="270" y="520" width="660" height="40" fill="url(#timberGrain)" rx="4" />
+
+  <!-- Architectural Labeling -->
+  <text x="100" y="${height - 80}" font-family="Georgia, serif" font-size="32" fill="#EDE8DF">${title}</text>
+  <text x="100" y="${height - 45}" font-family="sans-serif" font-size="12" fill="#C5A880" letter-spacing="3">${subtitle}</text>
+</svg>
+    `.trim();
+    return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(atticSvg)}`;
   }
 
   let bg = '#161D18';

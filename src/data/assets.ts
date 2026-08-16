@@ -159,7 +159,7 @@ export const ASSETS = {
         src: createArchitecturalSvgDataUrl({
           title: 'Above The City',
           subtitle: 'ATTIC & LOFT CONVERSION — DUBLIN',
-          theme: 'dark',
+          theme: 'attic',
         }),
         alt: 'Warm attic conversion with roof windows and bespoke timber bedroom suite',
       } as ImageAsset,

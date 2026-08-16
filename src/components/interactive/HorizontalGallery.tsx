@@ -83,7 +83,7 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({
       {/* Desktop Pinned Horizontal Container */}
       <div className="hidden lg:block h-screen w-full relative pt-28">
         {/* Settled Header with Ample Vertical Clearance Above Track */}
-        <div ref={headingRef} className="absolute top-28 left-12 right-12 z-20 flex items-end justify-between border-b border-[#EDE8DF]/15 pb-4 pointer-events-none">
+        <div ref={headingRef} className="absolute top-24 left-12 right-12 z-20 flex items-end justify-between pb-2 pointer-events-none">
           <div>
             <span className="font-sans text-xs font-bold tracking-[0.25em] text-[#C5A880] uppercase">
               {subtitle}
