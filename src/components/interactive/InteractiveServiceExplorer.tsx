@@ -1,207 +1,216 @@
-import React, { useRef, useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
 import { ArrowUpRight, Check } from 'lucide-react';
 import { SERVICES } from '../../data/services';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
-
 export const InteractiveServiceExplorer: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const stickyRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(0); // Default focus on first service
+  const [mobileActiveIndex, setMobileActiveIndex] = useState<number>(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-
-  useGSAP(
-    () => {
-      if (prefersReducedMotion || !containerRef.current || !stickyRef.current) return;
-
-      const totalServices = SERVICES.length;
-
-      // Responsive scroll scrub duration for fluid wheel progress
-      const st = ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: 'top top',
-        end: `+=${totalServices * 50}%`,
-        pin: stickyRef.current,
-        scrub: 0.4,
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          const index = Math.min(
-            totalServices - 1,
-            Math.floor(self.progress * totalServices)
-          );
-          setActiveIndex(index);
-        },
-      });
-
-      return () => {
-        st.kill();
-      };
-    },
-    { scope: containerRef, dependencies: [prefersReducedMotion] }
-  );
-
-  const activeService = SERVICES[activeIndex];
-
-  if (prefersReducedMotion) {
-    return (
-      <div className="mx-auto max-w-7xl px-6 md:px-12 py-16 space-y-8 bg-[#161D18] text-[#EDE8DF]">
-        <div className="space-y-2">
-          <span className="font-sans text-xs font-bold tracking-[0.2em] text-[#C5A880] uppercase">OUR CAPABILITIES</span>
-          <h2 className="font-serif text-3xl font-medium text-[#EDE8DF]">Residential Services</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {SERVICES.map((s) => (
-            <div key={s.id} className="p-6 rounded-2xl bg-[#1B231D] border border-[#EDE8DF]/10 space-y-3">
-              <span className="font-sans text-xs text-[#C5A880] font-bold uppercase">{s.categoryGroup}</span>
-              <h3 className="font-serif text-2xl font-medium text-[#EDE8DF]">{s.title}</h3>
-              <p className="font-sans text-xs text-[#8E877D]">{s.shortDesc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+  // Handle mobile scroll snap focus update
+  const handleMobileScroll = () => {
+    if (!scrollContainerRef.current) return;
+    const container = scrollContainerRef.current;
+    const scrollLeft = container.scrollLeft;
+    const cardWidth = container.clientWidth * 0.85;
+    const newIndex = Math.min(
+      SERVICES.length - 1,
+      Math.max(0, Math.round(scrollLeft / cardWidth))
     );
-  }
+    setMobileActiveIndex(newIndex);
+  };
 
   return (
-    <div ref={containerRef} className="relative w-full bg-[#161D18] text-[#EDE8DF]">
-      {/* Sticky Main Frame with Top Clearance for Navbar */}
-      <div
-        ref={stickyRef}
-        className="relative h-screen w-full flex flex-col justify-between p-6 md:p-10 pt-28 overflow-hidden"
-      >
-        {/* Header Label */}
-        <div className="relative z-10 flex items-center justify-between border-b border-[#EDE8DF]/15 pb-4">
-          <div>
+    <section className="relative w-full bg-[#161D18] text-[#EDE8DF] py-20 md:py-28 px-6 md:px-12 border-b border-[#EDE8DF]/10 overflow-hidden">
+      <div className="mx-auto max-w-7xl space-y-12">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#EDE8DF]/15 pb-6">
+          <div className="space-y-2">
             <span className="font-sans text-xs font-bold tracking-[0.25em] text-[#C5A880] uppercase">
               CAPABILITIES EXPLORER
             </span>
-            <h2 className="font-serif text-2xl md:text-3xl font-normal text-[#EDE8DF]">
+            <h2 className="font-serif text-3xl md:text-5xl font-normal text-[#EDE8DF]">
               Residential Services
             </h2>
           </div>
-          <span className="font-sans text-xs text-[#8E877D] tracking-widest uppercase">
-            0{activeIndex + 1} / 07
-          </span>
+          <p className="font-sans text-xs text-[#8E877D] max-w-md leading-relaxed hidden md:block">
+            Hover over any architectural discipline below to focus details, scope, and spatial capabilities.
+          </p>
         </div>
 
-        {/* Center Split Screen Layout: Left Service Menu & Right Card Composition */}
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 my-auto items-stretch">
-          {/* Left Service Menu List */}
-          <div className="lg:col-span-5 flex flex-col justify-center space-y-2">
-            {SERVICES.map((service, idx) => {
-              const isActive = activeIndex === idx;
-              return (
-                <button
-                  key={service.id}
-                  type="button"
-                  onClick={() => setActiveIndex(idx)}
-                  className={`w-full text-left py-3.5 px-5 rounded-xl transition-all duration-300 flex items-center justify-between group ${
-                    isActive
-                      ? 'bg-[#1B231D] text-[#EDE8DF] border border-[#C5A880]/40 shadow-xl translate-x-2'
-                      : 'hover:bg-[#1B231D]/50 text-[#8E877D]'
+        {/* Desktop Architectural Diagonal-Card Composition (hidden on mobile) */}
+        <div className="hidden lg:grid lg:grid-cols-7 gap-3 items-stretch min-h-[540px] pt-4 pb-2">
+          {SERVICES.map((service, idx) => {
+            const isFocused = hoveredIndex === idx;
+            const isAnyHovered = hoveredIndex !== null;
+            const isBlurred = isAnyHovered && !isFocused;
+
+            return (
+              <div
+                key={service.id}
+                onMouseEnter={() => setHoveredIndex(idx)}
+                onMouseLeave={() => setHoveredIndex(idx)} // keep focused index active
+                className={`relative group rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 ease-out border ${
+                  isFocused
+                    ? 'lg:col-span-3 z-30 scale-105 border-[#C5A880] shadow-[0_20px_50px_rgba(0,0,0,0.6)]'
+                    : isBlurred
+                    ? 'lg:col-span-1 z-10 scale-[0.97] opacity-60 filter blur-[1.5px] border-[#EDE8DF]/10'
+                    : 'lg:col-span-1 z-20 opacity-85 border-[#EDE8DF]/15'
+                }`}
+                style={{
+                  clipPath: prefersReducedMotion
+                    ? 'none'
+                    : 'polygon(0 0, 100% 0, 94% 100%, 0% 100%)',
+                }}
+              >
+                {/* Background Architectural Imagery */}
+                <img
+                  src={service.heroImage.src}
+                  alt={service.heroImage.alt}
+                  className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ${
+                    isFocused ? 'scale-110 filter brightness-[0.75] contrast-[1.1]' : 'scale-100 filter brightness-[0.5]'
                   }`}
-                  data-cursor="hover"
-                >
-                  <div className="flex items-center space-x-4">
-                    <span className={`font-serif text-xs ${isActive ? 'text-[#C5A880]' : 'text-[#8E877D]'}`}>
+                  loading="lazy"
+                />
+
+                {/* Dark Vignette Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#161D18] via-[#161D18]/60 to-transparent" />
+
+                {/* Focused Card Expanded View */}
+                {isFocused ? (
+                  <div className="relative z-20 p-8 h-full flex flex-col justify-between text-[#EDE8DF] space-y-6">
+                    {/* Top Metadata */}
+                    <div className="flex items-center justify-between">
+                      <span className="font-serif text-2xl font-light text-[#C5A880]">
+                        0{idx + 1}
+                      </span>
+                      <span className="rounded-full bg-[#C5A880] px-3 py-1 font-sans text-[10px] font-bold tracking-widest text-[#161D18] uppercase">
+                        {service.categoryGroup}
+                      </span>
+                    </div>
+
+                    {/* Middle Title & Description */}
+                    <div className="space-y-3 my-auto">
+                      <h3 className="font-serif text-3xl md:text-4xl font-normal text-[#EDE8DF]">
+                        {service.title}
+                      </h3>
+                      <p className="font-sans text-xs text-[#EDE8DF]/90 leading-relaxed font-light line-clamp-3">
+                        {service.longDesc}
+                      </p>
+                    </div>
+
+                    {/* Bottom Scope & CTA */}
+                    <div className="space-y-4 pt-4 border-t border-[#EDE8DF]/20">
+                      <div className="space-y-1.5">
+                        {service.scope.slice(0, 3).map((item, sIdx) => (
+                          <div key={sIdx} className="flex items-center space-x-2 font-sans text-[11px] text-[#EDE8DF]/85">
+                            <Check className="h-3.5 w-3.5 text-[#C5A880] flex-shrink-0" />
+                            <span className="truncate font-light">{item}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="pt-2">
+                        <Link
+                          to={`/services/${service.slug}`}
+                          className="inline-flex items-center space-x-2 rounded-full bg-[#C5A880] px-5 py-2.5 font-sans text-[11px] font-bold tracking-widest uppercase text-[#161D18] transition-all hover:bg-[#EDE8DF]"
+                        >
+                          <span>Explore Service</span>
+                          <ArrowUpRight className="h-3.5 w-3.5" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  /* Non-Focused Compact Strip View */
+                  <div className="relative z-20 p-6 h-full flex flex-col justify-between text-[#EDE8DF]">
+                    <span className="font-serif text-xl font-light text-[#C5A880]">
                       0{idx + 1}
                     </span>
-                    <span className={`font-serif text-lg md:text-xl ${isActive ? 'font-medium text-[#EDE8DF]' : 'font-normal'}`}>
-                      {service.title}
+                    <div className="rotate-0 lg:-rotate-90 origin-bottom-left whitespace-nowrap pt-8">
+                      <h3 className="font-serif text-lg font-normal tracking-wide text-[#EDE8DF]/90">
+                        {service.title}
+                      </h3>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Mobile Touch-Friendly Swipe Carousel (< 1024px) */}
+        <div className="lg:hidden space-y-6">
+          <div
+            ref={scrollContainerRef}
+            onScroll={handleMobileScroll}
+            className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 scrollbar-none"
+          >
+            {SERVICES.map((service, idx) => {
+              const isActive = mobileActiveIndex === idx;
+              return (
+                <div
+                  key={service.id}
+                  className={`snap-center flex-shrink-0 w-[85vw] max-w-[340px] rounded-2xl overflow-hidden border transition-all duration-300 ${
+                    isActive
+                      ? 'border-[#C5A880] shadow-xl bg-[#1B231D]'
+                      : 'border-[#EDE8DF]/10 bg-[#161D18] opacity-75'
+                  }`}
+                >
+                  <div className="h-44 relative overflow-hidden">
+                    <img
+                      src={service.heroImage.src}
+                      alt={service.heroImage.alt}
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1B231D] via-transparent to-transparent" />
+                    <span className="absolute top-4 left-4 font-serif text-xl font-light text-[#C5A880] bg-[#161D18]/80 px-3 py-1 rounded-full text-xs">
+                      0{idx + 1}
                     </span>
                   </div>
-                  <span className={`font-sans text-[9px] font-bold tracking-widest uppercase ${isActive ? 'text-[#C5A880]' : 'opacity-0'}`}>
-                    {service.categoryGroup}
-                  </span>
-                </button>
+
+                  <div className="p-6 space-y-3">
+                    <span className="font-sans text-[10px] font-bold text-[#C5A880] uppercase tracking-widest">
+                      {service.categoryGroup}
+                    </span>
+                    <h3 className="font-serif text-2xl font-normal text-[#EDE8DF]">
+                      {service.title}
+                    </h3>
+                    <p className="font-sans text-xs text-[#8E877D] line-clamp-2 leading-relaxed">
+                      {service.shortDesc}
+                    </p>
+                    <div className="pt-3 border-t border-[#EDE8DF]/10">
+                      <Link
+                        to={`/services/${service.slug}`}
+                        className="inline-flex items-center space-x-2 font-sans text-xs font-bold text-[#C5A880] uppercase tracking-wider"
+                      >
+                        <span>View Details</span>
+                        <ArrowUpRight className="h-3.5 w-3.5" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               );
             })}
           </div>
 
-          {/* Right Active Service Card Composition */}
-          <div className="lg:col-span-7 relative min-h-[480px] rounded-2xl overflow-hidden border border-[#EDE8DF]/15 bg-[#1B231D] text-[#EDE8DF] shadow-2xl flex flex-col justify-between p-8 md:p-10">
-            {/* Background Photography Crossfade */}
-            {SERVICES.map((service, idx) => (
-              <div
-                key={service.id}
-                className={`absolute inset-0 transition-all duration-700 ease-out ${
-                  activeIndex === idx ? 'opacity-70 scale-100' : 'opacity-0 scale-105'
+          {/* Mobile Step Indicator Dots */}
+          <div className="flex justify-center items-center space-x-2 pt-2">
+            {SERVICES.map((_, idx) => (
+              <span
+                key={idx}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  mobileActiveIndex === idx ? 'w-6 bg-[#C5A880]' : 'w-1.5 bg-[#EDE8DF]/20'
                 }`}
-                style={{ transitionProperty: 'opacity, transform' }}
-              >
-                <img
-                  src={service.heroImage.src}
-                  alt={service.heroImage.alt}
-                  className="h-full w-full object-cover filter brightness-[0.65] contrast-[1.05]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#161D18] via-[#161D18]/70 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#161D18]/85 via-transparent to-transparent" />
-              </div>
+              />
             ))}
-
-            {/* TOP: Service Badge + Duration */}
-            <div className="relative z-20 flex items-center justify-between">
-              <span className="rounded-full bg-[#C5A880] px-3.5 py-1 font-sans text-[10px] font-bold tracking-widest text-[#161D18] uppercase shadow-sm">
-                {activeService.categoryGroup}
-              </span>
-              <span className="font-sans text-[11px] text-[#EDE8DF]/90 tracking-wider uppercase font-semibold bg-[#161D18]/70 backdrop-blur-md px-3 py-1 rounded-full border border-[#EDE8DF]/10">
-                TYPICAL DURATION: {activeService.typicalDuration}
-              </span>
-            </div>
-
-            {/* MIDDLE: Large Service Title + Explanatory Paragraph */}
-            <div className="relative z-20 space-y-3 my-auto py-4">
-              <h3 className="font-serif text-3xl md:text-5xl font-normal text-[#EDE8DF] drop-shadow-md">
-                {activeService.title}
-              </h3>
-              <p className="font-sans text-xs md:text-sm text-[#EDE8DF]/90 leading-relaxed max-w-lg font-light drop-shadow-xs">
-                {activeService.longDesc}
-              </p>
-            </div>
-
-            {/* BOTTOM AREA (Two-Column Layout): Left Column (3 Benefits Stacked Vertically) | Right Column (CTA Button) */}
-            <div className="relative z-20 pt-6 border-t border-[#EDE8DF]/20 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-              {/* Left Column: 3 Benefits Stacked Vertically */}
-              <div className="md:col-span-7 space-y-2.5">
-                {activeService.scope.slice(0, 3).map((sc, sIdx) => (
-                  <div key={sIdx} className="flex items-center space-x-2.5 font-sans text-xs text-[#EDE8DF]/90">
-                    <Check className="h-4 w-4 text-[#C5A880] flex-shrink-0" />
-                    <span className="truncate font-medium">{sc}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Right Column: VIEW SERVICE DETAIL Button */}
-              <div className="md:col-span-5 flex md:justify-end">
-                <Link
-                  to={`/services/${activeService.slug}`}
-                  className="inline-flex items-center justify-center space-x-2 rounded-full bg-[#C5A880] px-6 py-3.5 font-sans text-xs font-bold tracking-widest uppercase text-[#161D18] transition-all duration-300 hover:bg-[#EDE8DF] shadow-lg w-full md:w-auto"
-                  data-cursor="hover"
-                  data-cursor-text="VIEW"
-                >
-                  <span>View Service Detail</span>
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
           </div>
         </div>
-
-        {/* Bottom Progress Bar */}
-        <div className="relative z-10 h-1 w-full bg-[#EDE8DF]/15 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-[#C5A880] transition-all duration-300"
-            style={{ width: `${((activeIndex + 1) / SERVICES.length) * 100}%` }}
-          />
-        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
