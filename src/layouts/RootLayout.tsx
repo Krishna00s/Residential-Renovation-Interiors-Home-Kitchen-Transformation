@@ -57,11 +57,11 @@ export const RootLayout: React.FC = () => {
   }, [location.pathname]);
 
   return (
-    <div className="relative min-h-screen bg-[#F9F8F6] text-[#121212] font-sans antialiased selection:bg-[#121212] selection:text-[#F9F8F6]">
+    <div className="relative min-h-screen bg-[#161D18] text-[#EDE8DF] font-sans antialiased selection:bg-[#C5A880] selection:text-[#161D18]">
       <CustomCursor />
       <NoiseOverlay />
       <Navbar />
-      <main className="relative z-10 overflow-hidden pt-24 min-h-[70vh]">
+      <main className="relative z-10 pt-24 min-h-[70vh]">
         <Outlet />
       </main>
       <Footer />

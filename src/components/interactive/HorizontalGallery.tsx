@@ -22,9 +22,10 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  // Desktop Horizontal Scroll Pinning
+  // Desktop Horizontal Scroll Pinning with Settled Header Clearance
   useGSAP(
     () => {
       if (prefersReducedMotion || !containerRef.current || !trackRef.current) return;
@@ -40,9 +41,9 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top top',
-          end: `+=${scrollWidth}`,
+          end: `+=${scrollWidth + 100}`,
           pin: true,
-          scrub: 0.6,
+          scrub: 0.5,
           anticipatePin: 1,
           invalidateOnRefresh: true,
         },
@@ -59,17 +60,17 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({
   // Mobile / Reduced Motion Fallback: Clean Vertical Stack
   if (prefersReducedMotion) {
     return (
-      <div className="mx-auto max-w-7xl px-6 md:px-12 py-16 space-y-8">
+      <div className="mx-auto max-w-7xl px-6 md:px-12 py-16 space-y-8 bg-[#161D18] text-[#EDE8DF]">
         <div className="space-y-2">
           <span className="font-sans text-xs font-bold tracking-[0.2em] text-[#C5A880] uppercase">{subtitle}</span>
-          <h2 className="font-serif text-3xl font-medium text-[#121212]">{title}</h2>
+          <h2 className="font-serif text-3xl font-medium text-[#EDE8DF]">{title}</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {projects.map((proj) => (
-            <Link key={proj.id} to={`/projects/${proj.slug}`} className="group p-6 rounded-2xl bg-[#121212] text-[#F9F8F6]">
+            <Link key={proj.id} to={`/projects/${proj.slug}`} className="group p-6 rounded-2xl bg-[#1B231D] text-[#EDE8DF]">
               <span className="font-sans text-xs text-[#C5A880] uppercase">{proj.category}</span>
               <h3 className="font-serif text-2xl font-medium mt-2">{proj.title}</h3>
-              <p className="font-sans text-xs text-[#8C8275] mt-1">{proj.subtitle}</p>
+              <p className="font-sans text-xs text-[#8E877D] mt-1">{proj.subtitle}</p>
             </Link>
           ))}
         </div>
@@ -78,65 +79,66 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({
   }
 
   return (
-    <div ref={containerRef} className="relative w-full overflow-hidden bg-[#121212] text-[#F9F8F6]">
+    <div ref={containerRef} className="relative w-full bg-[#161D18] text-[#EDE8DF]">
       {/* Desktop Pinned Horizontal Container */}
-      <div className="hidden lg:block h-screen w-full relative">
-        {/* Fixed Header */}
-        <div className="absolute top-12 left-12 right-12 z-20 flex items-center justify-between pointer-events-none">
+      <div className="hidden lg:block h-screen w-full relative pt-28">
+        {/* Settled Header with Ample Vertical Clearance Above Track */}
+        <div ref={headingRef} className="absolute top-28 left-12 right-12 z-20 flex items-end justify-between border-b border-[#EDE8DF]/15 pb-4 pointer-events-none">
           <div>
             <span className="font-sans text-xs font-bold tracking-[0.25em] text-[#C5A880] uppercase">
               {subtitle}
             </span>
-            <h2 className="font-serif text-2xl md:text-3xl font-normal text-[#F9F8F6]">
+            <h2 className="font-serif text-3xl md:text-5xl font-normal text-[#EDE8DF]">
               {title}
             </h2>
           </div>
-          <span className="font-sans text-xs text-[#8C8275] tracking-widest uppercase">
+          <span className="font-sans text-xs text-[#8E877D] tracking-widest uppercase font-medium">
             SCROLL HORIZONTALLY →
           </span>
         </div>
 
-        {/* Horizontal Moving Track */}
+        {/* Horizontal Moving Track with Ample Top Clearance */}
         <div
           ref={trackRef}
-          className="absolute top-0 bottom-0 left-0 flex items-center gap-12 px-12 pt-28 pb-16 h-full w-max"
+          className="absolute top-0 bottom-0 left-0 flex items-center gap-10 px-12 pt-44 pb-10 h-full w-max"
         >
           {projects.map((project, idx) => (
             <Link
               key={project.id}
               to={`/projects/${project.slug}`}
-              className="group relative flex-shrink-0 w-[600px] h-[75vh] rounded-2xl overflow-hidden bg-[#1A1918] border border-[#F9F8F6]/10 transition-transform duration-500 hover:scale-[1.01]"
+              className="group relative flex-shrink-0 w-[580px] h-[64vh] rounded-2xl overflow-hidden bg-[#1B231D] border border-[#EDE8DF]/15 shadow-2xl transition-transform duration-500 hover:scale-[1.01]"
               data-cursor="hover"
               data-cursor-text="EXPLORE"
             >
-              {/* Image Background */}
+              {/* Full-Bleed Architectural Image */}
               <img
                 src={project.heroImage.src}
                 alt={project.heroImage.alt}
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-[0.8]"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-[0.78] contrast-[1.05]"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-[#121212]/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#161D18] via-[#161D18]/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#161D18]/60 via-transparent to-transparent" />
 
               {/* Card Content Overlay */}
-              <div className="absolute inset-0 p-10 flex flex-col justify-between z-10">
+              <div className="absolute inset-0 p-8 md:p-10 flex flex-col justify-between z-10">
                 <div className="flex items-center justify-between">
-                  <span className="font-serif text-3xl font-light text-[#C5A880]">
+                  <span className="font-serif text-3xl font-light text-[#C5A880] bg-[#161D18]/60 backdrop-blur-md px-3.5 py-1 rounded-full border border-[#EDE8DF]/10">
                     0{idx + 1}
                   </span>
-                  <span className="rounded-full bg-[#121212]/80 backdrop-blur-md px-3.5 py-1 font-sans text-[10px] font-bold tracking-widest text-[#F9F8F6] uppercase border border-[#F9F8F6]/10">
+                  <span className="rounded-full bg-[#161D18]/80 backdrop-blur-md px-3.5 py-1 font-sans text-[10px] font-bold tracking-widest text-[#EDE8DF] uppercase border border-[#EDE8DF]/15">
                     {project.category}
                   </span>
                 </div>
 
                 <div className="space-y-3">
-                  <span className="font-sans text-xs text-[#8C8275] uppercase tracking-wider">
+                  <span className="font-sans text-xs text-[#8E877D] uppercase tracking-wider font-medium">
                     {project.location} • {project.year}
                   </span>
-                  <h3 className="font-serif text-4xl font-normal text-[#F9F8F6] group-hover:text-[#C5A880] transition-colors">
+                  <h3 className="font-serif text-3xl md:text-4xl font-normal text-[#EDE8DF] group-hover:text-[#C5A880] transition-colors">
                     {project.title}
                   </h3>
-                  <p className="font-sans text-xs text-[#8C8275] max-w-md line-clamp-2 leading-relaxed">
+                  <p className="font-sans text-xs text-[#EDE8DF]/80 max-w-md line-clamp-2 leading-relaxed font-light">
                     {project.subtitle}
                   </p>
 
@@ -152,12 +154,12 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({
       </div>
 
       {/* Mobile Touch-Friendly Vertical Swipe Alternative (< 1024px) */}
-      <div className="lg:hidden px-6 py-16 space-y-8">
+      <div className="lg:hidden px-6 py-16 space-y-8 bg-[#161D18]">
         <div className="space-y-2">
           <span className="font-sans text-xs font-bold tracking-[0.25em] text-[#C5A880] uppercase">
             {subtitle}
           </span>
-          <h2 className="font-serif text-3xl font-normal text-[#F9F8F6]">
+          <h2 className="font-serif text-3xl font-normal text-[#EDE8DF]">
             {title}
           </h2>
         </div>
@@ -167,9 +169,9 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({
             <Link
               key={project.id}
               to={`/projects/${project.slug}`}
-              className="snap-center flex-shrink-0 w-[85vw] max-w-[360px] rounded-2xl bg-[#1A1918] border border-[#F9F8F6]/10 p-6 space-y-4"
+              className="snap-center flex-shrink-0 w-[85vw] max-w-[360px] rounded-2xl bg-[#1B231D] border border-[#EDE8DF]/15 p-6 space-y-4 shadow-xl"
             >
-              <div className="h-48 rounded-xl overflow-hidden relative">
+              <div className="h-52 rounded-xl overflow-hidden relative">
                 <img
                   src={project.heroImage.src}
                   alt={project.heroImage.alt}
@@ -177,8 +179,8 @@ export const HorizontalGallery: React.FC<HorizontalGalleryProps> = ({
                 />
               </div>
               <span className="font-sans text-[10px] font-bold text-[#C5A880] uppercase tracking-widest">{project.category}</span>
-              <h3 className="font-serif text-2xl font-normal text-[#F9F8F6]">{project.title}</h3>
-              <p className="font-sans text-xs text-[#8C8275] line-clamp-2">{project.subtitle}</p>
+              <h3 className="font-serif text-2xl font-normal text-[#EDE8DF]">{project.title}</h3>
+              <p className="font-sans text-xs text-[#8E877D] line-clamp-2">{project.subtitle}</p>
             </Link>
           ))}
         </div>

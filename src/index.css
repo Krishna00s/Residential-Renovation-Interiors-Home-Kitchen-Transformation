@@ -4,14 +4,15 @@
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 
-  --color-brand-dark: #121212;
-  --color-brand-nearblack: #1A1918;
-  --color-brand-surface: #242220;
-  --color-brand-offwhite: #F9F8F6;
-  --color-brand-stone: #EAE6E1;
-  --color-brand-muted: #8C8275;
+  --color-brand-dark: #161D18;
+  --color-brand-nearblack: #1B231D;
+  --color-brand-surface: #222B24;
+  --color-brand-walnut: #2D251F;
+  --color-brand-stone: #DED8CE;
+  --color-brand-offwhite: #EDE8DF;
+  --color-brand-muted: #8E877D;
   --color-brand-accent: #C5A880;
-  --color-brand-olive: #3E4A3D;
+  --color-brand-olive: #242F26;
 }
 
 @layer base {
@@ -23,8 +24,8 @@
 
   html {
     font-family: var(--font-sans);
-    background-color: #F9F8F6;
-    color: #121212;
+    background-color: #161D18;
+    color: #EDE8DF;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

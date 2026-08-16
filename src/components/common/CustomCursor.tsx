@@ -4,7 +4,6 @@ import gsap from 'gsap';
 export type CursorMode = 'default' | 'view' | 'explore' | 'drag' | 'hover';
 
 export const CustomCursor: React.FC = () => {
-  const cursorRef = useRef<HTMLDivElement>(null);
   const followerRef = useRef<HTMLDivElement>(null);
   const [cursorText, setCursorText] = useState<string>('');
   const [cursorMode, setCursorMode] = useState<CursorMode>('default');
@@ -16,21 +15,16 @@ export const CustomCursor: React.FC = () => {
       return;
     }
 
-    const cursor = cursorRef.current;
     const follower = followerRef.current;
-    if (!cursor || !follower) return;
+    if (!follower) return;
 
-    // Fast GSAP quickTo setters for 60fps cursor tracking
-    const xDotTo = gsap.quickTo(cursor, 'x', { duration: 0.1, ease: 'power3' });
-    const yDotTo = gsap.quickTo(cursor, 'y', { duration: 0.1, ease: 'power3' });
-    const xFollowerTo = gsap.quickTo(follower, 'x', { duration: 0.35, ease: 'power3' });
-    const yFollowerTo = gsap.quickTo(follower, 'y', { duration: 0.35, ease: 'power3' });
+    // Tight GSAP quickTo setters for instant, zero-lag pointer tracking
+    const xFollowerTo = gsap.quickTo(follower, 'x', { duration: 0.08, ease: 'power2.out' });
+    const yFollowerTo = gsap.quickTo(follower, 'y', { duration: 0.08, ease: 'power2.out' });
 
     const onMouseMove = (e: MouseEvent) => {
       if (!isVisible) setIsVisible(true);
 
-      xDotTo(e.clientX);
-      yDotTo(e.clientX ? e.clientX : 0);
       xFollowerTo(e.clientX);
       yFollowerTo(e.clientY);
 
@@ -76,27 +70,21 @@ export const CustomCursor: React.FC = () => {
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none fixed inset-0 z-50 transition-opacity duration-300 ${
+      className={`pointer-events-none fixed inset-0 z-50 transition-opacity duration-200 ${
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
     >
-      {/* Center Dot */}
-      <div
-        ref={cursorRef}
-        className="fixed top-0 left-0 -ml-1 -mt-1 h-2 w-2 rounded-full bg-[#121212] dark:bg-[#F9F8F6] mix-blend-difference"
-      />
-
-      {/* Outer Follower Ring */}
+      {/* Contextual Ring Follower */}
       <div
         ref={followerRef}
-        className={`fixed top-0 left-0 -ml-6 -mt-6 flex h-12 w-12 items-center justify-center rounded-full border border-[#121212]/40 transition-all duration-300 dark:border-[#F9F8F6]/40 ${
+        className={`fixed top-0 left-0 -ml-5 -mt-5 flex h-10 w-10 items-center justify-center rounded-full border border-[#1C241E]/30 transition-all duration-200 ${
           cursorMode !== 'default'
-            ? 'scale-150 bg-[#121212] text-[#F9F8F6] border-none shadow-lg dark:bg-[#F9F8F6] dark:text-[#121212]'
-            : 'scale-100 bg-transparent'
+            ? 'scale-125 bg-[#1C241E] text-[#F1EDE4] border-none shadow-lg'
+            : 'scale-100 bg-[#C5A880]/15 border-[#1C241E]/40'
         }`}
       >
         {cursorText && (
-          <span className="font-sans text-[9px] font-bold tracking-widest uppercase text-center leading-none">
+          <span className="font-sans text-[8px] font-bold tracking-widest uppercase text-center leading-none text-[#F1EDE4]">
             {cursorText}
           </span>
         )}
