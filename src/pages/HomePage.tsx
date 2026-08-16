@@ -1,7 +1,7 @@
 import React from 'react';
 import Hero from '../components/hero/Hero';
 import EditorialIntro from '../components/home/EditorialIntro';
-import InteractiveServiceExplorer from '../components/interactive/InteractiveServiceExplorer';
+import WhatWeDoSection from '../components/home/WhatWeDoSection';
 import BeforeAfterSlider from '../components/interactive/BeforeAfterSlider';
 import FeaturedProject from '../components/home/FeaturedProject';
 import HorizontalGallery from '../components/interactive/HorizontalGallery';
@@ -19,8 +19,8 @@ export const HomePage: React.FC = () => {
       {/* 2. Editorial Philosophy Introduction */}
       <EditorialIntro />
 
-      {/* 3. Interactive Service Explorer (Sticky Storytelling) */}
-      <InteractiveServiceExplorer />
+      {/* 3. "What We Do" Tilted Infinite Service Carousel & Compact Process Section */}
+      <WhatWeDoSection />
 
       {/* 4. Spatial Transformation Section */}
       <section className="bg-[#161D18] text-[#EDE8DF] py-24 px-6 md:px-12 border-b border-[#EDE8DF]/10">
