@@ -26,7 +26,7 @@ export const ASSETS = {
       src: createArchitecturalSvgDataUrl({
         title: 'Spaces Worth Coming Home To',
         subtitle: 'DUBLIN RESIDENTIAL RENOVATION & EXTENSIONS',
-        theme: 'dark',
+        theme: 'hero',
       }),
       alt: 'Architectural living space with warm timber and natural stone',
       caption: 'Full-home architectural transformation in Dublin',
