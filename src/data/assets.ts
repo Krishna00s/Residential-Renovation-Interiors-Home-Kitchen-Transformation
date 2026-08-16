@@ -23,8 +23,8 @@ export const ASSETS = {
     oakHouse: {
       hero: {
         id: 'oak-house-hero',
-        src: '/assets/images/project-oak-house.jpg',
-        alt: 'The Oak House - Full interior renovation with bespoke joinery',
+        src: '/assets/images/split-before-after-oak-house.svg',
+        alt: 'The Oak House - Side-by-side BEFORE and AFTER whole-home renovation comparison',
       } as ImageAsset,
       before: {
         id: 'oak-house-before',
