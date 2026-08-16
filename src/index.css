@@ -1,0 +1,120 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  --color-brand-dark: #121212;
+  --color-brand-nearblack: #1A1918;
+  --color-brand-surface: #242220;
+  --color-brand-offwhite: #F9F8F6;
+  --color-brand-stone: #EAE6E1;
+  --color-brand-muted: #8C8275;
+  --color-brand-accent: #C5A880;
+  --color-brand-olive: #3E4A3D;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    background-color: #F9F8F6;
+    color: #121212;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: var(--font-serif);
+  }
+}
+
+/* Custom Architectural Clip-Paths */
+.clip-diagonal {
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.clip-diagonal-reverse {
+  clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+}
+
+.clip-inset-reveal {
+  clip-path: inset(10% 10% 10% 10% round 8px);
+}
+
+.clip-full-bleed {
+  clip-path: inset(0% 0% 0% 0%);
+}
+
+/* Custom Text Reveal Mask Helper */
+.text-mask-wrapper {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.text-mask-child {
+  display: inline-block;
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+/* Noise overlay canvas style */
+.bg-noise-pattern {
+  background-image: radial-gradient(rgba(18, 18, 18, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.dark .bg-noise-pattern,
+.bg-brand-dark .bg-noise-pattern {
+  background-image: radial-gradient(rgba(249, 248, 246, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Custom Cursor Rules */
+@media (pointer: fine) {
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+/* Smooth Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F9F8F6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8C8275;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #121212;
+}
+
+/* Prefers Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .clip-diagonal,
+  .clip-diagonal-reverse {
+    clip-path: none !important;
+  }
+}
