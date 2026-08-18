@@ -7,21 +7,21 @@ export const FeaturedProject: React.FC = () => {
   const featured = PROJECTS[0]; // The Oak House
 
   return (
-    <section className="bg-[#161D18] text-[#EDE8DF] py-24 px-6 md:px-12 border-b border-[#EDE8DF]/10">
-      <div className="mx-auto max-w-7xl space-y-12">
+    <section className="bg-[#161D18] text-[#EDE8DF] py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10">
+      <div className="mx-auto max-w-7xl space-y-8 sm:space-y-10 lg:space-y-12">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#EDE8DF]/10 pb-8">
-          <div className="space-y-2">
-            <span className="font-sans text-xs font-bold tracking-[0.25em] text-[#C5A880] uppercase">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-6 border-b border-[#EDE8DF]/10 pb-4 sm:pb-8">
+          <div className="space-y-1 sm:space-y-2">
+            <span className="font-sans text-[10px] sm:text-xs font-bold tracking-[0.3em] text-[#C5A880] uppercase">
               FEATURED CASE STUDY
             </span>
-            <h2 className="font-serif text-3xl md:text-5xl font-normal text-[#EDE8DF]">
+            <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-normal text-[#EDE8DF]">
               Architectural Transformation
             </h2>
           </div>
           <Link
             to="/projects"
-            className="inline-flex items-center space-x-2 font-sans text-xs font-bold tracking-widest uppercase text-[#EDE8DF] hover:text-[#C5A880] transition-colors"
+            className="inline-flex items-center space-x-2 font-sans text-xs font-bold tracking-widest uppercase text-[#C5A880] hover:text-[#EDE8DF] transition-colors"
           >
             <span>View All Case Studies</span>
             <ArrowUpRight className="h-4 w-4" />
@@ -29,11 +29,11 @@ export const FeaturedProject: React.FC = () => {
         </div>
 
         {/* Magazine Spread Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Large Photography Spread */}
           <Link
             to={`/projects/${featured.slug}`}
-            className="lg:col-span-7 group relative block overflow-hidden rounded-2xl bg-[#1F2721] h-[450px] md:h-[580px] border border-[#EDE8DF]/15 shadow-2xl"
+            className="lg:col-span-7 group relative block overflow-hidden rounded-2xl bg-[#1F2721] h-[300px] sm:h-[400px] lg:h-[580px] border border-[#EDE8DF]/15 shadow-2xl"
             data-cursor="hover"
             data-cursor-text="CASE STUDY"
           >
@@ -43,39 +43,40 @@ export const FeaturedProject: React.FC = () => {
               className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-[0.85] contrast-[1.05]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#161D18]/85 via-transparent to-transparent" />
-            <div className="absolute bottom-8 left-8 right-8 z-10 flex items-center justify-between text-[#EDE8DF]">
-              <span className="rounded-full bg-[#161D18]/80 backdrop-blur-md px-4 py-1.5 font-sans text-xs font-bold tracking-widest uppercase border border-[#EDE8DF]/15">
+            <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 right-4 sm:right-8 z-10 flex items-center justify-between text-[#EDE8DF]">
+              <span className="rounded-full bg-[#161D18]/80 backdrop-blur-md px-3 sm:px-4 py-1 sm:py-1.5 font-sans text-[10px] sm:text-xs font-bold tracking-widest uppercase border border-[#EDE8DF]/15">
                 {featured.category}
               </span>
-              <span className="font-sans text-xs text-[#8E877D] uppercase">{featured.location}</span>
+              <span className="font-sans text-[10px] sm:text-xs text-[#8E877D] uppercase">{featured.location}</span>
             </div>
           </Link>
 
-          {/* Right Project Brief & Stats */}
-          <div className="lg:col-span-5 space-y-8">
-            <div className="space-y-4">
-              <span className="font-sans text-xs text-[#8E877D] uppercase tracking-wider">
+          {/* Right Project Brief & Specs (Deliberate Editorial Rhythm) */}
+          <div className="lg:col-span-5 space-y-6 sm:space-y-8 pt-2 sm:pt-0">
+            <div className="space-y-2 sm:space-y-4">
+              <span className="font-sans text-[10px] sm:text-xs text-[#8E877D] uppercase tracking-widest">
                 COMPLETED {featured.year} • {featured.duration}
               </span>
-              <h3 className="font-serif text-4xl md:text-5xl font-normal leading-tight text-[#EDE8DF]">
+              <h3 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight text-[#EDE8DF] tracking-tight">
                 {featured.title}
               </h3>
-              <p className="font-sans text-base text-[#EDE8DF]/85 leading-relaxed font-light">
+              <p className="font-sans text-xs sm:text-base text-[#EDE8DF]/85 leading-relaxed font-light pt-1">
                 {featured.description}
               </p>
             </div>
 
-            {/* Statistics */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-b border-[#EDE8DF]/15 py-6">
+            {/* Architectural Project Specifications */}
+            <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-6 border-t border-b border-[#EDE8DF]/15 py-6 my-2 sm:my-4">
               {featured.stats.map((st, idx) => (
                 <div key={idx} className="space-y-1">
-                  <span className="font-sans text-[10px] text-[#8E877D] uppercase tracking-widest">{st.label}</span>
-                  <p className="font-serif text-xl font-semibold text-[#EDE8DF]">{st.value}</p>
+                  <span className="font-sans text-[9px] sm:text-[10px] text-[#8E877D] uppercase tracking-[0.25em] font-semibold">{st.label}</span>
+                  <p className="font-serif text-lg sm:text-2xl font-medium text-[#C5A880]">{st.value}</p>
                 </div>
               ))}
             </div>
 
-            <div>
+            {/* Action CTA */}
+            <div className="pt-2 sm:pt-4">
               <Link
                 to={`/projects/${featured.slug}`}
                 className="inline-flex items-center space-x-3 rounded-full bg-[#C5A880] px-7 py-4 font-sans text-xs font-bold tracking-widest uppercase text-[#161D18] transition-all duration-300 hover:bg-[#EDE8DF] shadow-lg"

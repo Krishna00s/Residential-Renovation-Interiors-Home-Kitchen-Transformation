@@ -61,9 +61,9 @@ export const Hero: React.FC = () => {
   return (
     <section
       ref={heroRef}
-      className="relative h-screen min-h-[720px] w-full bg-[#161D18] text-[#EDE8DF] overflow-hidden flex flex-col justify-between p-6 md:p-12 -mt-24 pt-32"
+      className="relative h-screen min-h-[100svh] lg:min-h-[720px] w-full bg-[#161D18] text-[#EDE8DF] overflow-hidden flex flex-col justify-between p-4 sm:p-6 md:p-12 -mt-24 pt-24 sm:pt-32"
     >
-      {/* Edge-to-Edge Architectural Photography Background (Visually Dominant & Illuminated) */}
+      {/* Edge-to-Edge Architectural Photography Background */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
           ref={bgImageRef}
@@ -72,23 +72,23 @@ export const Hero: React.FC = () => {
           className="h-full w-full object-cover filter brightness-[0.95] contrast-[1.05] scale-100 transform-gpu"
           fetchPriority="high"
         />
-        {/* Balanced Gradient Overlays (Text Contrast on Left, Glowing Villa Visible on Right) */}
+        {/* Balanced Gradient Overlays */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#161D18] via-[#161D18]/70 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#161D18] via-transparent to-[#161D18]/50" />
       </div>
 
-      {/* Main Layered Editorial Typography Composition (Scaled for Balance & Breathing Room) */}
-      <div ref={contentRef} className="relative z-10 my-auto max-w-3xl space-y-6 pl-2 md:pl-6">
-        <div className="space-y-4">
-          {/* Main Display Headline (Slightly Reduced for Perfect Proportion) */}
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[4.5rem] font-normal leading-[1.04] tracking-tight text-[#EDE8DF]">
+      {/* Main Layered Editorial Typography Composition */}
+      <div ref={contentRef} className="relative z-10 my-auto max-w-3xl space-y-4 sm:space-y-6 pl-1 sm:pl-2 md:pl-6">
+        <div className="space-y-2 sm:space-y-4">
+          {/* Main Display Headline */}
+          <h1 className="font-serif text-3xl sm:text-5xl md:text-7xl lg:text-[4.5rem] font-normal leading-[1.06] tracking-tight text-[#EDE8DF]">
             We don’t <br />
             <span className="italic text-[#C5A880] font-light">just</span> renovate <br />
             homes.
           </h1>
 
           {/* Sub-Headline Accent Statement */}
-          <h2 className="font-serif text-xl sm:text-3xl md:text-4xl font-normal text-[#EDE8DF]">
+          <h2 className="font-serif text-lg sm:text-2xl md:text-4xl font-normal text-[#EDE8DF]">
             We <span className="italic text-[#C5A880] font-light">reshape</span> how you live.
           </h2>
 
@@ -99,20 +99,20 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* Action CTAs */}
-        <div className="flex flex-wrap items-center gap-4 pt-2">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1 sm:pt-2">
           <Link
             to="/contact"
-            className="inline-flex items-center space-x-3 rounded-full bg-[#C5A880] px-7 py-3.5 font-sans text-xs font-bold tracking-widest uppercase text-[#161D18] transition-all duration-300 hover:bg-[#EDE8DF] focus:outline-hidden shadow-xl"
+            className="inline-flex items-center space-x-2.5 sm:space-x-3 rounded-full bg-[#C5A880] px-5 py-3 sm:px-7 sm:py-3.5 font-sans text-[11px] sm:text-xs font-bold tracking-widest uppercase text-[#161D18] transition-all duration-300 hover:bg-[#EDE8DF] focus:outline-hidden shadow-xl"
             data-cursor="hover"
             data-cursor-text="START"
           >
             <span>Start a Project</span>
-            <ArrowUpRight className="h-4 w-4" />
+            <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </Link>
 
           <Link
             to="/projects"
-            className="inline-flex items-center space-x-3 rounded-full bg-[#161D18]/70 backdrop-blur-md border border-[#EDE8DF]/20 px-7 py-3.5 font-sans text-xs font-semibold tracking-widest uppercase text-[#EDE8DF] transition-all duration-300 hover:bg-[#EDE8DF] hover:text-[#161D18]"
+            className="inline-flex items-center space-x-2.5 sm:space-x-3 rounded-full bg-[#161D18]/70 backdrop-blur-md border border-[#EDE8DF]/20 px-5 py-3 sm:px-7 sm:py-3.5 font-sans text-[11px] sm:text-xs font-semibold tracking-widest uppercase text-[#EDE8DF] transition-all duration-300 hover:bg-[#EDE8DF] hover:text-[#161D18]"
             data-cursor="hover"
             data-cursor-text="VIEW"
           >
@@ -122,12 +122,12 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Hero Bottom Scroll & Meta Indicator Bar */}
-      <div className="relative z-10 flex items-center justify-between border-t border-[#EDE8DF]/15 pt-6 text-[10px] font-sans tracking-widest uppercase text-[#8E877D] pl-2 md:pl-6">
+      <div className="relative z-10 flex items-center justify-between border-t border-[#EDE8DF]/15 pt-4 sm:pt-6 text-[9px] sm:text-[10px] font-sans tracking-widest uppercase text-[#8E877D] pl-1 sm:pl-2 md:pl-6">
         <div className="flex items-center space-x-2">
           <ArrowDown className="h-3.5 w-3.5 text-[#C5A880] animate-bounce" />
           <span>SCROLL TO DISCOVER</span>
         </div>
-        <span>RESIDENTIAL ARCHITECTURE &amp; INTERIORS</span>
+        <span className="hidden sm:inline">RESIDENTIAL ARCHITECTURE &amp; INTERIORS</span>
       </div>
     </section>
   );

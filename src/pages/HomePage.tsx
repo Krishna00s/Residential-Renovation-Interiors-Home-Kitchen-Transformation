@@ -23,16 +23,16 @@ export const HomePage: React.FC = () => {
       <WhatWeDoSection />
 
       {/* 4. Spatial Transformation Section */}
-      <section className="bg-[#161D18] text-[#EDE8DF] py-24 px-6 md:px-12 border-b border-[#EDE8DF]/10">
-        <div className="mx-auto max-w-7xl space-y-12">
-          <div className="space-y-4">
-            <span className="font-sans text-xs font-bold tracking-[0.25em] text-[#C5A880] uppercase">
+      <section className="bg-[#161D18] text-[#EDE8DF] py-8 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10">
+        <div className="mx-auto max-w-7xl space-y-6 sm:space-y-10 lg:space-y-12">
+          <div className="space-y-1.5 sm:space-y-4">
+            <span className="font-sans text-[10px] sm:text-xs font-bold tracking-[0.3em] text-[#C5A880] uppercase">
               SPATIAL RECONFIGURATION
             </span>
-            <h2 className="font-serif text-3xl md:text-5xl font-normal leading-tight text-[#EDE8DF]">
+            <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-normal leading-tight text-[#EDE8DF]">
               The Transformation
             </h2>
-            <p className="font-sans text-base text-[#EDE8DF]/80 max-w-xl leading-relaxed font-light">
+            <p className="font-sans text-xs sm:text-base text-[#EDE8DF]/80 max-w-xl leading-relaxed font-light">
               Drag or scroll to reveal how dark, enclosed structures are re-architected into light-filled, open living environments.
             </p>
           </div>
