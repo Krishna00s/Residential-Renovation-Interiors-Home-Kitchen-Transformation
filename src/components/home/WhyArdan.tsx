@@ -74,36 +74,40 @@ export const WhyArdan: React.FC = () => {
   );
 
   return (
-    <section ref={containerRef} className="bg-[#1F2721] text-[#EDE8DF] py-24 px-6 md:px-12 border-b border-[#EDE8DF]/10">
-      <div className="mx-auto max-w-7xl space-y-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-          <div className="lg:col-span-5 space-y-2">
-            <span className="font-sans text-xs font-bold tracking-[0.25em] text-[#C5A880] uppercase">
+    <section ref={containerRef} className="bg-[#1F2721] text-[#EDE8DF] py-10 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10">
+      <div className="mx-auto max-w-7xl space-y-4 sm:space-y-8 lg:space-y-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-8 items-end">
+          <div className="lg:col-span-5 space-y-1 sm:space-y-2">
+            <span className="font-sans text-[10px] sm:text-xs font-bold tracking-[0.3em] text-[#C5A880] uppercase">
               WHY CLIENTS CHOOSE US
             </span>
-            <h2 className="font-serif text-3xl md:text-5xl font-normal text-[#EDE8DF]">
-              Thoughtful Execution. <br />
+            <h2 className="font-serif text-xl sm:text-3xl lg:text-5xl font-normal leading-tight text-[#EDE8DF]">
+              Thoughtful Execution. <br className="hidden sm:inline" />
               <span className="italic text-[#8E877D]">Uncompromised Craft.</span>
             </h2>
           </div>
-          <p className="lg:col-span-7 font-sans text-sm md:text-base text-[#8E877D] max-w-xl leading-relaxed font-light">
+          <p className="lg:col-span-7 font-sans text-[11px] sm:text-sm lg:text-base text-[#8E877D] max-w-xl leading-relaxed font-light">
             Renovating a home is a major life decision. We structure our approach to bring calm confidence, architectural rigor, and clear communication to every project across {COMPANY_INFO.location}.
           </p>
         </div>
 
-        {/* 4 Sequential Reveal Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* 4 Sequential Reveal Cards Grid (2x2 Mobile / 4-Col Desktop with FULL UNCLIPPED TEXT) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6 lg:gap-8">
           {proofPoints.map((point, idx) => (
             <div
               key={point.number}
               ref={(el) => {
                 if (el) cardsRef.current[idx] = el;
               }}
-              className="p-8 rounded-2xl bg-[#161D18] border border-[#EDE8DF]/10 space-y-4 shadow-xl transition-colors hover:border-[#C5A880]/40"
+              className="p-4 sm:p-6 lg:p-8 rounded-2xl bg-[#161D18] border border-[#EDE8DF]/10 space-y-2 sm:space-y-3 shadow-xl transition-colors hover:border-[#C5A880]/40 flex flex-col justify-between"
             >
-              <span className="font-serif text-3xl font-semibold text-[#C5A880]">{point.number}</span>
-              <h3 className="font-serif text-xl font-medium text-[#EDE8DF]">{point.title}</h3>
-              <p className="font-sans text-xs text-[#8E877D] leading-relaxed font-light">{point.desc}</p>
+              <div className="space-y-1.5 sm:space-y-2">
+                <div className="flex items-baseline space-x-1.5 lg:block lg:space-x-0 lg:space-y-2">
+                  <span className="font-serif text-base sm:text-2xl lg:text-3xl font-semibold text-[#C5A880]">{point.number}</span>
+                  <h3 className="font-serif text-xs sm:text-lg lg:text-xl font-medium text-[#EDE8DF]">{point.title}</h3>
+                </div>
+              </div>
+              <p className="font-sans text-[11px] sm:text-xs text-[#8E877D] leading-relaxed font-light pt-1">{point.desc}</p>
             </div>
           ))}
         </div>

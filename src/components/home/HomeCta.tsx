@@ -5,7 +5,7 @@ import { COMPANY_INFO } from '../../data/company';
 
 export const HomeCta: React.FC = () => {
   return (
-    <section className="relative bg-gradient-to-b from-[#1F2721] via-[#1A221C] to-[#161D18] text-[#EDE8DF] py-24 md:py-32 px-6 md:px-12 border-b border-[#EDE8DF]/10">
+    <section className="hidden lg:block relative bg-gradient-to-b from-[#1F2721] via-[#1A221C] to-[#161D18] text-[#EDE8DF] py-24 md:py-32 px-6 md:px-12 border-b border-[#EDE8DF]/10">
       <div className="mx-auto max-w-7xl text-center space-y-8">
         <span className="font-sans text-xs font-bold tracking-[0.25em] text-[#C5A880] uppercase">
           BEGIN YOUR JOURNEY
