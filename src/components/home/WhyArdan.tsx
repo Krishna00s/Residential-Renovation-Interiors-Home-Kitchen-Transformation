@@ -35,7 +35,7 @@ export const WhyArdan: React.FC = () => {
     },
   ];
 
-  // GSAP ScrollTrigger Sequential Reveal Scrub
+  // GSAP ScrollTrigger Sequential Reveal Scrub (Optimized Middle-Ground Entrance Timing)
   useGSAP(
     () => {
       if (prefersReducedMotion || !containerRef.current || cardsRef.current.length === 0) return;
@@ -46,21 +46,21 @@ export const WhyArdan: React.FC = () => {
         cards,
         {
           opacity: 0,
-          y: 40,
+          y: 36,
           scale: 0.96,
         },
         {
           opacity: 1,
           y: 0,
           scale: 1,
-          stagger: 0.25,
-          duration: 1,
+          stagger: 0.19,
+          duration: 0.85,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top 75%',
-            end: 'bottom 55%',
-            scrub: 0.6,
+            end: 'top 25%',
+            scrub: 0.5,
           },
         }
       );
@@ -91,7 +91,7 @@ export const WhyArdan: React.FC = () => {
           </p>
         </div>
 
-        {/* 4 Sequential Reveal Cards Grid (2x2 Mobile / 4-Col Desktop with FULL UNCLIPPED TEXT) */}
+        {/* 4 Sequential Reveal Cards Grid (2x2 Mobile / 4-Col Desktop with Cohesive Internal Grouping) */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6 lg:gap-8">
           {proofPoints.map((point, idx) => (
             <div
@@ -99,7 +99,7 @@ export const WhyArdan: React.FC = () => {
               ref={(el) => {
                 if (el) cardsRef.current[idx] = el;
               }}
-              className="p-4 sm:p-6 lg:p-8 rounded-2xl bg-[#161D18] border border-[#EDE8DF]/10 space-y-2 sm:space-y-3 shadow-xl transition-colors hover:border-[#C5A880]/40 flex flex-col justify-between"
+              className="p-4 sm:p-6 lg:p-8 rounded-2xl bg-[#161D18] border border-[#EDE8DF]/10 space-y-2.5 sm:space-y-4 shadow-xl transition-colors hover:border-[#C5A880]/40 flex flex-col justify-start items-start"
             >
               <div className="space-y-1.5 sm:space-y-2">
                 <div className="flex items-baseline space-x-1.5 lg:block lg:space-x-0 lg:space-y-2">
@@ -107,7 +107,7 @@ export const WhyArdan: React.FC = () => {
                   <h3 className="font-serif text-xs sm:text-lg lg:text-xl font-medium text-[#EDE8DF]">{point.title}</h3>
                 </div>
               </div>
-              <p className="font-sans text-[11px] sm:text-xs text-[#8E877D] leading-relaxed font-light pt-1">{point.desc}</p>
+              <p className="font-sans text-[11px] sm:text-xs text-[#8E877D] leading-relaxed font-light">{point.desc}</p>
             </div>
           ))}
         </div>
