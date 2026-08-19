@@ -9,8 +9,8 @@ export const ASSETS = {
     main: {
       id: 'hero-main',
       src: '/assets/images/hero-main.jpg',
-      alt: 'Contemporary architectural residence at dusk with warm interior lighting and glass facade',
-      caption: 'Full-home architectural transformation in Dublin',
+      alt: 'Award-winning contemporary residential architecture villa at dusk with cantilevered timber pavilion, floor-to-ceiling glazing, and pool terrace reflections',
+      caption: 'Full-home architectural transformation',
     } as ImageAsset,
     secondary: {
       id: 'hero-secondary',

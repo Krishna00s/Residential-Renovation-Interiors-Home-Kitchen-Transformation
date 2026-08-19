@@ -63,46 +63,46 @@ export const Hero: React.FC = () => {
       ref={heroRef}
       className="relative h-screen min-h-[100svh] lg:min-h-[720px] w-full bg-[#161D18] text-[#EDE8DF] overflow-hidden flex flex-col justify-between p-4 sm:p-6 md:p-12 -mt-24 pt-24 sm:pt-32"
     >
-      {/* Edge-to-Edge Architectural Photography Background */}
+      {/* Edge-to-Edge Architectural Photography Background (Shifted Slightly Right on Mobile for Architectural Focus) */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
           ref={bgImageRef}
           src={ASSETS.hero.main.src}
           alt={ASSETS.hero.main.alt}
-          className="h-full w-full object-cover filter brightness-[0.95] contrast-[1.05] scale-100 transform-gpu"
+          className="h-full w-full object-cover object-[78%_center] lg:object-center filter brightness-[0.98] contrast-[1.03] scale-100 transform-gpu"
           fetchPriority="high"
         />
-        {/* Balanced Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#161D18] via-[#161D18]/70 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#161D18] via-transparent to-[#161D18]/50" />
+        {/* Soft Organic Gradient Overlays: Dark Text-Safe Left Zone to Luminous Architectural Right */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#161D18]/90 via-[#161D18]/65 via-50% to-transparent pointer-events-none lg:from-[#161D18] lg:via-[#161D18]/70" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#161D18] via-transparent via-60% to-[#161D18]/40 pointer-events-none" />
       </div>
 
-      {/* Main Layered Editorial Typography Composition */}
-      <div ref={contentRef} className="relative z-10 my-auto max-w-3xl space-y-4 sm:space-y-6 pl-1 sm:pl-2 md:pl-6">
+      {/* Art-Directed Editorial Typography Column */}
+      <div ref={contentRef} className="relative z-10 my-auto w-full max-w-xl xl:max-w-2xl space-y-4 sm:space-y-6 pl-1 sm:pl-2 md:pl-6 pb-2 sm:pb-0">
         <div className="space-y-2 sm:space-y-4">
-          {/* Main Display Headline */}
-          <h1 className="font-serif text-3xl sm:text-5xl md:text-7xl lg:text-[4.5rem] font-normal leading-[1.06] tracking-tight text-[#EDE8DF]">
+          {/* Main Editorial Display Headline (Elevated Mobile Magazine Scale) */}
+          <h1 className="font-serif text-[2.65rem] sm:text-5xl md:text-6xl lg:text-[4.75rem] font-normal leading-[1.05] tracking-tight text-[#EDE8DF]">
             We don’t <br />
             <span className="italic text-[#C5A880] font-light">just</span> renovate <br />
             homes.
           </h1>
 
           {/* Sub-Headline Accent Statement */}
-          <h2 className="font-serif text-lg sm:text-2xl md:text-4xl font-normal text-[#EDE8DF]">
+          <h2 className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal text-[#EDE8DF]">
             We <span className="italic text-[#C5A880] font-light">reshape</span> how you live.
           </h2>
 
-          {/* Supporting Description */}
-          <p className="font-sans text-xs sm:text-sm md:text-base text-[#EDE8DF]/85 max-w-lg leading-relaxed font-light">
+          {/* Quiet Supporting Description */}
+          <p className="font-sans text-xs sm:text-sm md:text-base text-[#EDE8DF]/85 max-w-md leading-relaxed font-light pt-1 sm:pt-1.5">
             Thoughtful renovations, extensions and interior architecture designed around the way you live.
           </p>
         </div>
 
-        {/* Action CTAs */}
-        <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1 sm:pt-2">
+        {/* Premium Action CTAs (Moved Lower in Mobile Viewport Directly Above Divider) */}
+        <div className="flex flex-row items-center gap-2.5 sm:gap-4 pt-14 sm:pt-24 lg:pt-6 w-full max-w-md">
           <Link
             to="/contact"
-            className="inline-flex items-center space-x-2.5 sm:space-x-3 rounded-full bg-[#C5A880] px-5 py-3 sm:px-7 sm:py-3.5 font-sans text-[11px] sm:text-xs font-bold tracking-widest uppercase text-[#161D18] transition-all duration-300 hover:bg-[#EDE8DF] focus:outline-hidden shadow-xl"
+            className="flex-1 inline-flex items-center justify-center space-x-1.5 sm:space-x-3 rounded-full bg-[#C5A880] px-3.5 py-3 sm:px-7 sm:py-4 font-sans text-[10px] sm:text-xs font-bold tracking-wider uppercase text-[#161D18] transition-all duration-300 hover:bg-[#EDE8DF] hover:shadow-2xl focus:outline-hidden shadow-xl text-center whitespace-nowrap"
             data-cursor="hover"
             data-cursor-text="START"
           >
@@ -112,7 +112,7 @@ export const Hero: React.FC = () => {
 
           <Link
             to="/projects"
-            className="inline-flex items-center space-x-2.5 sm:space-x-3 rounded-full bg-[#161D18]/70 backdrop-blur-md border border-[#EDE8DF]/20 px-5 py-3 sm:px-7 sm:py-3.5 font-sans text-[11px] sm:text-xs font-semibold tracking-widest uppercase text-[#EDE8DF] transition-all duration-300 hover:bg-[#EDE8DF] hover:text-[#161D18]"
+            className="flex-1 inline-flex items-center justify-center space-x-1.5 sm:space-x-3 rounded-full bg-[#161D18]/80 backdrop-blur-md border border-[#EDE8DF]/20 px-3.5 py-3 sm:px-7 sm:py-4 font-sans text-[10px] sm:text-xs font-semibold tracking-wider uppercase text-[#EDE8DF] transition-all duration-300 hover:bg-[#EDE8DF] hover:text-[#161D18] text-center whitespace-nowrap"
             data-cursor="hover"
             data-cursor-text="VIEW"
           >
