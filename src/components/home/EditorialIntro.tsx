@@ -3,7 +3,7 @@ import { COMPANY_INFO } from '../../data/company';
 
 export const EditorialIntro: React.FC = () => {
   return (
-    <section className="relative bg-[#1F2721] text-[#EDE8DF] py-8 sm:py-16 lg:py-32 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10 mb-12 sm:mb-16 lg:mb-0">
+    <section className="relative bg-[#1F2721] text-[#EDE8DF] py-14 sm:py-20 lg:py-32 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10 mb-14 sm:mb-20 lg:mb-0">
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8 lg:gap-12 items-end">
           {/* Left Sub-Header & Badge */}

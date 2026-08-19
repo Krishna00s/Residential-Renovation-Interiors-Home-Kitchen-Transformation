@@ -8,6 +8,8 @@ export const WhatWeDoSection: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
   const [centerIndex, setCenterIndex] = useState<number>(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isInView, setIsInView] = useState<boolean>(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const totalServices = SERVICES.length;
   const touchStartXRef = useRef<number | null>(null);
 
@@ -58,6 +60,37 @@ export const WhatWeDoSection: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handlePrev, handleNext]);
 
+  // IntersectionObserver to pause/resume auto motion on scroll visibility
+  useEffect(() => {
+    const sectionEl = sectionRef.current;
+    if (!sectionEl) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(sectionEl);
+    return () => observer.disconnect();
+  }, []);
+
+  // Automatic Sequential Mobile Carousel Motion (Hold ~1.5s -> Smooth 3D Transition -> Hold)
+  useEffect(() => {
+    if (prefersReducedMotion || !isInView) return;
+
+    const isMobile = window.innerWidth < 1024;
+    if (!isMobile) return;
+
+    // 2200ms total loop = 700ms smooth 3D easing transition + 1500ms hold pause
+    const interval = setInterval(() => {
+      handleNext();
+    }, 2200);
+
+    return () => clearInterval(interval);
+  }, [isInView, centerIndex, prefersReducedMotion, handleNext]);
+
   // Active focus index for metadata display
   const activeFocusIndex = hoveredIndex !== null ? hoveredIndex : centerIndex;
 
@@ -90,7 +123,7 @@ export const WhatWeDoSection: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full bg-[#161D18] text-[#EDE8DF] py-6 sm:py-12 lg:py-24 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10 overflow-hidden mb-12 sm:mb-16 lg:mb-0">
+    <section ref={sectionRef} className="relative w-full bg-[#161D18] text-[#EDE8DF] py-6 sm:py-12 lg:py-24 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10 overflow-hidden mb-12 sm:mb-16 lg:mb-0">
       <div className="mx-auto max-w-7xl space-y-8 sm:space-y-12 lg:space-y-16">
         {/* 1. Dedicated WHAT WE DO Viewport Screen Container (< 1024px) */}
         <div className="flex flex-col items-center justify-start h-auto space-y-2 sm:space-y-3 lg:space-y-6">
@@ -128,7 +161,7 @@ export const WhatWeDoSection: React.FC = () => {
             </h2>
           </div>
 
-          {/* 2. PHYSICAL TILTED & SCALED INFINITE SERVICE-CARD CAROUSEL (Tight Connected Internal Spacing) */}
+          {/* 2. PHYSICAL TILTED & SCALED INFINITE SERVICE-CARD CAROUSEL */}
           <div
             className="relative w-full py-1 sm:py-2 lg:py-6 my-1 flex justify-center items-center select-none"
             onTouchStart={handleTouchStart}
