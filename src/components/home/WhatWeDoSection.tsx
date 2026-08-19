@@ -90,10 +90,10 @@ export const WhatWeDoSection: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full bg-[#161D18] text-[#EDE8DF] py-6 sm:py-12 lg:py-24 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10 overflow-hidden">
-      <div className="mx-auto max-w-7xl space-y-12 sm:space-y-16 lg:space-y-16">
+    <section className="relative w-full bg-[#161D18] text-[#EDE8DF] py-6 sm:py-12 lg:py-24 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10 overflow-hidden mb-12 sm:mb-16 lg:mb-0">
+      <div className="mx-auto max-w-7xl space-y-8 sm:space-y-12 lg:space-y-16">
         {/* 1. Dedicated WHAT WE DO Viewport Screen Container (< 1024px) */}
-        <div className="flex flex-col justify-between h-[calc(100svh-4.5rem)] lg:h-auto min-h-[460px] sm:min-h-[520px] lg:min-h-0 space-y-1 sm:space-y-3 lg:space-y-6">
+        <div className="flex flex-col items-center justify-start h-auto space-y-2 sm:space-y-3 lg:space-y-6">
           {/* 1A. DESKTOP HEADER (UNTOUCHED >= 1024px) */}
           <div className="hidden lg:block text-center space-y-4 max-w-4xl mx-auto">
             <span className="inline-block font-sans text-xs font-bold tracking-[0.25em] text-[#C5A880] uppercase">
@@ -128,9 +128,9 @@ export const WhatWeDoSection: React.FC = () => {
             </h2>
           </div>
 
-          {/* 2. PHYSICAL TILTED & SCALED INFINITE SERVICE-CARD CAROUSEL */}
+          {/* 2. PHYSICAL TILTED & SCALED INFINITE SERVICE-CARD CAROUSEL (Tight Connected Internal Spacing) */}
           <div
-            className="relative w-full py-1 sm:py-2 lg:py-6 flex justify-center items-center select-none"
+            className="relative w-full py-1 sm:py-2 lg:py-6 my-1 flex justify-center items-center select-none"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
@@ -299,7 +299,7 @@ export const WhatWeDoSection: React.FC = () => {
             </div>
 
             {/* Mobile 3D Depth Tunnel Carousel (< 1024px, Scaled for One-Viewport Fit) */}
-            <div className="lg:hidden relative w-full h-[300px] sm:h-[350px] flex items-center justify-center overflow-hidden [perspective:1000px] [transform-style:preserve-3d]">
+            <div className="lg:hidden relative w-full h-[285px] sm:h-[335px] flex items-center justify-center overflow-hidden [perspective:1000px] [transform-style:preserve-3d]">
               {SERVICES.map((service, sIndex) => {
                 let offset = sIndex - centerIndex;
                 if (offset > 3) offset -= totalServices;
@@ -383,7 +383,7 @@ export const WhatWeDoSection: React.FC = () => {
                   <div
                     key={service.id}
                     onClick={() => setCenterIndex(sIndex)}
-                    className={`absolute w-[220px] sm:w-[260px] h-[285px] sm:h-[335px] rounded-2xl overflow-hidden cursor-pointer bg-[#1B231D] border ${borderColor} shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] transform-gpu`}
+                    className={`absolute w-[220px] sm:w-[260px] h-[280px] sm:h-[330px] rounded-2xl overflow-hidden cursor-pointer bg-[#1B231D] border ${borderColor} shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] transform-gpu`}
                     style={{
                       transform: `translate3d(${translateX}px, 0px, ${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
                       zIndex,
@@ -448,8 +448,8 @@ export const WhatWeDoSection: React.FC = () => {
             </div>
           </div>
 
-          {/* 3. CAROUSEL ARROW CONTROLS */}
-          <div className="relative z-50 flex items-center justify-center space-x-6 pb-1">
+          {/* 3. CAROUSEL ARROW CONTROLS (Positioned Close Beneath Carousel) */}
+          <div className="relative z-50 flex items-center justify-center space-x-6 pb-1 pt-1">
             <button
               type="button"
               onClick={handlePrev}
@@ -476,7 +476,7 @@ export const WhatWeDoSection: React.FC = () => {
           </div>
         </div>
 
-        {/* 2. HOW WE DO Process Section (Dedicated Mobile Screen & Negative Space) */}
+        {/* 2. HOW WE DO Process Section (Deliberate External Section Breathing Gap) */}
         <div className="pt-16 sm:pt-20 lg:pt-16 border-t border-[#EDE8DF]/15 mt-16 sm:mt-20 lg:mt-16 space-y-6 lg:space-y-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 sm:gap-4">
             <div className="space-y-1">
