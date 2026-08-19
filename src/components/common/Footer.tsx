@@ -46,55 +46,58 @@ export const Footer: React.FC = () => {
             </p>
           </div>
 
-          {/* Navigation Links */}
-          <div className="lg:col-span-3 space-y-3">
-            <h3 className="font-sans text-xs font-bold tracking-[0.2em] uppercase text-[#C5A880]">
-              NAVIGATION
-            </h3>
-            <ul className="space-y-2 font-sans text-xs font-medium text-[#8E877D]">
-              <li>
-                <Link to="/" className="hover:text-[#EDE8DF] transition-colors">Home</Link>
-              </li>
-              <li>
-                <Link to="/services" className="hover:text-[#EDE8DF] transition-colors">Services Explorer</Link>
-              </li>
-              <li>
-                <Link to="/projects" className="hover:text-[#EDE8DF] transition-colors">Selected Work</Link>
-              </li>
-              <li>
-                <Link to="/process" className="hover:text-[#EDE8DF] transition-colors">Our Process</Link>
-              </li>
-              <li>
-                <Link to="/about" className="hover:text-[#EDE8DF] transition-colors">About Studio</Link>
-              </li>
-              <li>
-                <Link to="/journal" className="hover:text-[#EDE8DF] transition-colors">Editorial Journal</Link>
-              </li>
-            </ul>
-          </div>
+          {/* Mobile 2-Column Row for Navigation & Services / Desktop Columns */}
+          <div className="grid grid-cols-2 gap-4 sm:gap-6 md:contents lg:col-span-6">
+            {/* Navigation Links */}
+            <div className="space-y-3">
+              <h3 className="font-sans text-xs font-bold tracking-[0.2em] uppercase text-[#C5A880]">
+                NAVIGATION
+              </h3>
+              <ul className="space-y-2 font-sans text-xs font-medium text-[#8E877D]">
+                <li>
+                  <Link to="/" className="hover:text-[#EDE8DF] transition-colors">Home</Link>
+                </li>
+                <li>
+                  <Link to="/services" className="hover:text-[#EDE8DF] transition-colors">Services Explorer</Link>
+                </li>
+                <li>
+                  <Link to="/projects" className="hover:text-[#EDE8DF] transition-colors">Selected Work</Link>
+                </li>
+                <li>
+                  <Link to="/process" className="hover:text-[#EDE8DF] transition-colors">Our Process</Link>
+                </li>
+                <li>
+                  <Link to="/about" className="hover:text-[#EDE8DF] transition-colors">About Studio</Link>
+                </li>
+                <li>
+                  <Link to="/journal" className="hover:text-[#EDE8DF] transition-colors">Editorial Journal</Link>
+                </li>
+              </ul>
+            </div>
 
-          {/* Services */}
-          <div className="lg:col-span-3 space-y-3">
-            <h3 className="font-sans text-xs font-bold tracking-[0.2em] uppercase text-[#C5A880]">
-              SERVICES
-            </h3>
-            <ul className="space-y-2 font-sans text-xs font-medium text-[#8E877D]">
-              <li>
-                <Link to="/services/kitchen-renovations" className="hover:text-[#EDE8DF] transition-colors">Kitchen Renovations</Link>
-              </li>
-              <li>
-                <Link to="/services/bathroom-renovations" className="hover:text-[#EDE8DF] transition-colors">Bathroom Renovations</Link>
-              </li>
-              <li>
-                <Link to="/services/home-extensions" className="hover:text-[#EDE8DF] transition-colors">Home Extensions</Link>
-              </li>
-              <li>
-                <Link to="/services/attic-loft-conversions" className="hover:text-[#EDE8DF] transition-colors">Attic & Loft Conversions</Link>
-              </li>
-              <li>
-                <Link to="/services/full-home-renovations" className="hover:text-[#EDE8DF] transition-colors">Full Home Renovations</Link>
-              </li>
-            </ul>
+            {/* Services */}
+            <div className="space-y-3">
+              <h3 className="font-sans text-xs font-bold tracking-[0.2em] uppercase text-[#C5A880]">
+                SERVICES
+              </h3>
+              <ul className="space-y-2 font-sans text-xs font-medium text-[#8E877D]">
+                <li>
+                  <Link to="/services/kitchen-renovations" className="hover:text-[#EDE8DF] transition-colors">Kitchen Renovations</Link>
+                </li>
+                <li>
+                  <Link to="/services/bathroom-renovations" className="hover:text-[#EDE8DF] transition-colors">Bathroom Renovations</Link>
+                </li>
+                <li>
+                  <Link to="/services/home-extensions" className="hover:text-[#EDE8DF] transition-colors">Home Extensions</Link>
+                </li>
+                <li>
+                  <Link to="/services/attic-loft-conversions" className="hover:text-[#EDE8DF] transition-colors">Attic & Loft Conversions</Link>
+                </li>
+                <li>
+                  <Link to="/services/full-home-renovations" className="hover:text-[#EDE8DF] transition-colors">Full Home Renovations</Link>
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* Location & Contact Details */}
