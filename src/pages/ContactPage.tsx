@@ -8,8 +8,8 @@ export const ContactPage: React.FC = () => {
     email: '',
     phone: '',
     projectType: 'Kitchen',
-    location: 'Dublin',
-    budget: '€50k – €100k',
+    location: 'Bengaluru',
+    budget: '₹50L – ₹1Cr',
     message: '',
   });
 
@@ -64,7 +64,7 @@ export const ContactPage: React.FC = () => {
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="e.g. Sarah Jennings"
+                    placeholder="e.g. Rahul Sharma"
                     className="w-full rounded-lg border border-[#EDE8DF]/15 bg-[#161D18] px-4 py-3 font-sans text-sm text-[#EDE8DF] focus:border-[#C5A880] focus:outline-hidden"
                   />
                 </div>
@@ -79,7 +79,7 @@ export const ContactPage: React.FC = () => {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="sarah@example.com"
+                    placeholder="rahul@example.com"
                     className="w-full rounded-lg border border-[#EDE8DF]/15 bg-[#161D18] px-4 py-3 font-sans text-sm text-[#EDE8DF] focus:border-[#C5A880] focus:outline-hidden"
                   />
                 </div>
@@ -95,7 +95,7 @@ export const ContactPage: React.FC = () => {
                     id="phone"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="+353 87 123 4567"
+                    placeholder="+91 96938 21174"
                     className="w-full rounded-lg border border-[#EDE8DF]/15 bg-[#161D18] px-4 py-3 font-sans text-sm text-[#EDE8DF] focus:border-[#C5A880] focus:outline-hidden"
                   />
                 </div>
@@ -161,7 +161,9 @@ export const ContactPage: React.FC = () => {
             <h2 className="font-sans text-xs font-bold tracking-[0.2em] text-[#C5A880] uppercase">
               DIRECT CONTACT
             </h2>
-            <p className="font-sans text-sm text-[#EDE8DF]">{COMPANY_INFO.phone}</p>
+            <p className="font-sans text-sm text-[#EDE8DF]">
+              <a href="tel:+919693821174" className="hover:text-[#C5A880] transition-colors">{COMPANY_INFO.phone}</a>
+            </p>
             <p className="font-sans text-sm text-[#EDE8DF] font-semibold">{COMPANY_INFO.email}</p>
           </div>
 
