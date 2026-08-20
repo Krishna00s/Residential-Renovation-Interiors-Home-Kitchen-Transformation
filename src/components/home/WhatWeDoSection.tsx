@@ -76,20 +76,19 @@ export const WhatWeDoSection: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Automatic Sequential Mobile Carousel Motion (Hold ~1.5s -> Smooth 3D Transition -> Hold)
+  // Automatic Sequential 3D Carousel Motion for Desktop & Mobile (Hold ~1.8s -> 3D Transition -> Hold)
   useEffect(() => {
     if (prefersReducedMotion || !isInView) return;
+    // Pause auto motion on desktop when user is hovering over a card
+    if (hoveredIndex !== null) return;
 
-    const isMobile = window.innerWidth < 1024;
-    if (!isMobile) return;
-
-    // 2200ms total loop = 700ms smooth 3D easing transition + 1500ms hold pause
+    // 2200ms loop = ~1.6s hold + 600ms smooth 3D transform easing
     const interval = setInterval(() => {
       handleNext();
     }, 2200);
 
     return () => clearInterval(interval);
-  }, [isInView, centerIndex, prefersReducedMotion, handleNext]);
+  }, [isInView, centerIndex, hoveredIndex, prefersReducedMotion, handleNext]);
 
   // Active focus index for metadata display
   const activeFocusIndex = hoveredIndex !== null ? hoveredIndex : centerIndex;
@@ -123,17 +122,17 @@ export const WhatWeDoSection: React.FC = () => {
   ];
 
   return (
-    <section id="what-we-do" ref={sectionRef} className="relative w-full bg-[#161D18] text-[#EDE8DF] py-6 sm:py-12 lg:py-8 xl:py-12 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10 overflow-hidden mb-12 sm:mb-16 lg:mb-0 scroll-mt-24">
-      <div className="mx-auto max-w-7xl space-y-4 sm:space-y-8 lg:space-y-6">
+    <section id="what-we-do" ref={sectionRef} className="relative w-full bg-[#161D18] text-[#EDE8DF] py-6 sm:py-12 lg:py-7 xl:py-10 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10 overflow-hidden mb-12 sm:mb-16 lg:mb-0 scroll-mt-24">
+      <div className="mx-auto max-w-7xl space-y-4 sm:space-y-8 lg:space-y-5">
         {/* 1. Dedicated WHAT WE DO Viewport Screen Container */}
         <div className="flex flex-col items-center justify-start h-auto space-y-2 sm:space-y-3 lg:space-y-3">
-          {/* 1A. DESKTOP HEADER (100% Below Navbar Clearance & Proportional Scale for Laptops >= 1024px) */}
-          <div className="hidden lg:block text-center space-y-1.5 lg:space-y-2 max-w-3xl mx-auto pt-2 lg:pt-3">
+          {/* 1A. DESKTOP HEADER (100% Below Navbar Clearance, Refined Proportional Scale for Laptops >= 1024px) */}
+          <div className="hidden lg:block text-center space-y-1 lg:space-y-1.5 max-w-3xl mx-auto pt-1 lg:pt-2">
             <span className="inline-block font-sans text-[11px] lg:text-xs font-bold tracking-[0.25em] text-[#C5A880] uppercase mb-0.5">
               WHAT WE DO
             </span>
 
-            <h2 className="font-serif text-3xl lg:text-[2.5rem] xl:text-[3.15rem] font-normal leading-[1.08] text-[#EDE8DF]">
+            <h2 className="font-serif text-3xl lg:text-[2.15rem] xl:text-[2.65rem] font-normal leading-[1.08] text-[#EDE8DF]">
               Tailored renovation <br />
               solutions for every <br />
               <span className="italic text-[#C5A880]">home and lifestyle.</span>
@@ -163,12 +162,12 @@ export const WhatWeDoSection: React.FC = () => {
 
           {/* 2. PHYSICAL TILTED & SCALED INFINITE SERVICE-CARD CAROUSEL */}
           <div
-            className="relative w-full py-1 sm:py-2 lg:py-2 my-0.5 flex justify-center items-center select-none"
+            className="relative w-full py-1 sm:py-2 lg:py-1.5 my-0.5 flex justify-center items-center select-none"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
             {/* Desktop 7 Persistent Service Cards positioned around centerIndex */}
-            <div className="hidden lg:flex items-center justify-center min-h-[350px] lg:min-h-[360px] xl:min-h-[410px] w-full relative overflow-visible">
+            <div className="hidden lg:flex items-center justify-center min-h-[340px] lg:min-h-[355px] xl:min-h-[400px] w-full relative overflow-visible">
               {SERVICES.map((service, sIndex) => {
                 let offset = sIndex - centerIndex;
                 if (offset > 3) offset -= totalServices;
@@ -188,7 +187,7 @@ export const WhatWeDoSection: React.FC = () => {
                 let shadowClass = 'shadow-xl';
 
                 if (prefersReducedMotion) {
-                  translateX = offset * 290;
+                  translateX = offset * 285;
                   rotate = 0;
                   scale = isCenter ? 1.03 : 0.94;
                   opacity = Math.abs(offset) <= 2 ? 1 : 0;
@@ -204,7 +203,7 @@ export const WhatWeDoSection: React.FC = () => {
                   shadowClass = 'shadow-[0_25px_60px_rgba(0,0,0,0.7)]';
                 } else if (offset === 1) {
                   // IMMEDIATE RIGHT CARD
-                  translateX = 285;
+                  translateX = 280;
                   rotate = 4;
                   scale = 0.92;
                   zIndex = 20;
@@ -212,7 +211,7 @@ export const WhatWeDoSection: React.FC = () => {
                   blurPx = 0.5;
                 } else if (offset === -1) {
                   // IMMEDIATE LEFT CARD
-                  translateX = -285;
+                  translateX = -280;
                   rotate = -4;
                   scale = 0.92;
                   zIndex = 20;
@@ -220,7 +219,7 @@ export const WhatWeDoSection: React.FC = () => {
                   blurPx = 0.5;
                 } else if (offset === 2) {
                   // FAR RIGHT CARD
-                  translateX = 530;
+                  translateX = 520;
                   rotate = 8;
                   scale = 0.81;
                   zIndex = 10;
@@ -228,7 +227,7 @@ export const WhatWeDoSection: React.FC = () => {
                   blurPx = 2;
                 } else if (offset === -2) {
                   // FAR LEFT CARD
-                  translateX = -530;
+                  translateX = -520;
                   rotate = -8;
                   scale = 0.81;
                   zIndex = 10;
@@ -236,7 +235,7 @@ export const WhatWeDoSection: React.FC = () => {
                   blurPx = 2;
                 } else {
                   // HIDDEN OFF-SCREEN CARDS
-                  translateX = offset > 0 ? 780 : -780;
+                  translateX = offset > 0 ? 760 : -760;
                   rotate = offset > 0 ? 12 : -12;
                   scale = 0.7;
                   zIndex = 0;
@@ -263,7 +262,7 @@ export const WhatWeDoSection: React.FC = () => {
                       setHoveredIndex(null);
                       setCenterIndex(sIndex);
                     }}
-                    className={`absolute w-[270px] lg:w-[285px] xl:w-[310px] h-[340px] lg:h-[355px] xl:h-[405px] rounded-2xl overflow-hidden cursor-pointer bg-[#1B231D] border ${borderColor} ${shadowClass} transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] transform-gpu`}
+                    className={`absolute w-[265px] lg:w-[280px] xl:w-[305px] h-[330px] lg:h-[350px] xl:h-[395px] rounded-2xl overflow-hidden cursor-pointer bg-[#1B231D] border ${borderColor} ${shadowClass} transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] transform-gpu`}
                     style={{
                       transform: `translateX(${translateX}px) rotate(${rotate}deg) scale(${scale})`,
                       zIndex,
@@ -472,8 +471,8 @@ export const WhatWeDoSection: React.FC = () => {
             </div>
           </div>
 
-          {/* 3. CAROUSEL ARROW CONTROLS (Positioned Close Beneath Carousel) */}
-          <div className="relative z-50 flex items-center justify-center space-x-6 pb-1 pt-2 lg:pt-3">
+          {/* 3. CAROUSEL ARROW CONTROLS */}
+          <div className="relative z-50 flex items-center justify-center space-x-6 pb-1 pt-1 lg:pt-2">
             <button
               type="button"
               onClick={handlePrev}
