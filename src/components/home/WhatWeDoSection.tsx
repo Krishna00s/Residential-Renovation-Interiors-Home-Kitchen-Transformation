@@ -123,24 +123,24 @@ export const WhatWeDoSection: React.FC = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-[#161D18] text-[#EDE8DF] py-6 sm:py-12 lg:py-24 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10 overflow-hidden mb-12 sm:mb-16 lg:mb-0">
-      <div className="mx-auto max-w-7xl space-y-8 sm:space-y-12 lg:space-y-16">
-        {/* 1. Dedicated WHAT WE DO Viewport Screen Container (< 1024px) */}
-        <div className="flex flex-col items-center justify-start h-auto space-y-2 sm:space-y-3 lg:space-y-6">
-          {/* 1A. DESKTOP HEADER (UNTOUCHED >= 1024px) */}
-          <div className="hidden lg:block text-center space-y-4 max-w-4xl mx-auto">
-            <span className="inline-block font-sans text-xs font-bold tracking-[0.25em] text-[#C5A880] uppercase">
+    <section id="what-we-do" ref={sectionRef} className="relative w-full bg-[#161D18] text-[#EDE8DF] py-6 sm:py-12 lg:py-8 xl:py-12 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10 overflow-hidden mb-12 sm:mb-16 lg:mb-0 scroll-mt-24">
+      <div className="mx-auto max-w-7xl space-y-4 sm:space-y-8 lg:space-y-6">
+        {/* 1. Dedicated WHAT WE DO Viewport Screen Container */}
+        <div className="flex flex-col items-center justify-start h-auto space-y-2 sm:space-y-3 lg:space-y-3">
+          {/* 1A. DESKTOP HEADER (100% Below Navbar Clearance & Proportional Scale for Laptops >= 1024px) */}
+          <div className="hidden lg:block text-center space-y-1.5 lg:space-y-2 max-w-3xl mx-auto pt-2 lg:pt-3">
+            <span className="inline-block font-sans text-[11px] lg:text-xs font-bold tracking-[0.25em] text-[#C5A880] uppercase mb-0.5">
               WHAT WE DO
             </span>
 
-            <h2 className="font-serif text-6xl font-normal leading-[1.08] text-[#EDE8DF]">
+            <h2 className="font-serif text-3xl lg:text-[2.5rem] xl:text-[3.15rem] font-normal leading-[1.08] text-[#EDE8DF]">
               Tailored renovation <br />
               solutions for every <br />
               <span className="italic text-[#C5A880]">home and lifestyle.</span>
             </h2>
           </div>
 
-          {/* 1B. MOBILE ART-DIRECTED EDITORIAL TYPOGRAPHIC COMPOSITION (< 1024px) */}
+          {/* 1B. MOBILE ART-DIRECTED EDITORIAL TYPOGRAPHIC COMPOSITION (< 1024px UNTOUCHED) */}
           <div className="lg:hidden flex flex-col items-center max-w-md mx-auto space-y-1 sm:space-y-1.5 text-center pt-1">
             {/* Micro Section Marker */}
             <span className="font-sans text-[10px] font-bold tracking-[0.3em] text-[#C5A880] uppercase opacity-95">
@@ -163,14 +163,13 @@ export const WhatWeDoSection: React.FC = () => {
 
           {/* 2. PHYSICAL TILTED & SCALED INFINITE SERVICE-CARD CAROUSEL */}
           <div
-            className="relative w-full py-1 sm:py-2 lg:py-6 my-1 flex justify-center items-center select-none"
+            className="relative w-full py-1 sm:py-2 lg:py-2 my-0.5 flex justify-center items-center select-none"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
-            {/* Desktop 7 Persistent Service Cards positioned around centerIndex (UNTOUCHED) */}
-            <div className="hidden lg:flex items-center justify-center min-h-[500px] w-full relative overflow-visible">
+            {/* Desktop 7 Persistent Service Cards positioned around centerIndex */}
+            <div className="hidden lg:flex items-center justify-center min-h-[350px] lg:min-h-[360px] xl:min-h-[410px] w-full relative overflow-visible">
               {SERVICES.map((service, sIndex) => {
-                // Calculate shortest signed distance/offset from centerIndex (-3 to +3)
                 let offset = sIndex - centerIndex;
                 if (offset > 3) offset -= totalServices;
                 if (offset < -3) offset += totalServices;
@@ -179,7 +178,6 @@ export const WhatWeDoSection: React.FC = () => {
                 const isHovered = hoveredIndex === sIndex;
                 const isFocused = isHovered || (hoveredIndex === null && isCenter);
 
-                // Calculate 3D transforms based on relative offset from centerIndex
                 let translateX: number;
                 let rotate: number;
                 let scale: number;
@@ -190,15 +188,15 @@ export const WhatWeDoSection: React.FC = () => {
                 let shadowClass = 'shadow-xl';
 
                 if (prefersReducedMotion) {
-                  translateX = offset * 340;
+                  translateX = offset * 290;
                   rotate = 0;
-                  scale = isCenter ? 1.05 : 0.95;
+                  scale = isCenter ? 1.03 : 0.94;
                   opacity = Math.abs(offset) <= 2 ? 1 : 0;
                 } else if (offset === 0) {
                   // CENTER CARD
                   translateX = 0;
                   rotate = 0;
-                  scale = 1.05;
+                  scale = 1.03;
                   zIndex = 30;
                   opacity = 1;
                   blurPx = 0;
@@ -206,39 +204,39 @@ export const WhatWeDoSection: React.FC = () => {
                   shadowClass = 'shadow-[0_25px_60px_rgba(0,0,0,0.7)]';
                 } else if (offset === 1) {
                   // IMMEDIATE RIGHT CARD
-                  translateX = 340;
+                  translateX = 285;
                   rotate = 4;
-                  scale = 0.93;
+                  scale = 0.92;
                   zIndex = 20;
                   opacity = 0.75;
                   blurPx = 0.5;
                 } else if (offset === -1) {
                   // IMMEDIATE LEFT CARD
-                  translateX = -340;
+                  translateX = -285;
                   rotate = -4;
-                  scale = 0.93;
+                  scale = 0.92;
                   zIndex = 20;
                   opacity = 0.75;
                   blurPx = 0.5;
                 } else if (offset === 2) {
                   // FAR RIGHT CARD
-                  translateX = 640;
+                  translateX = 530;
                   rotate = 8;
-                  scale = 0.82;
+                  scale = 0.81;
                   zIndex = 10;
                   opacity = 0.35;
                   blurPx = 2;
                 } else if (offset === -2) {
                   // FAR LEFT CARD
-                  translateX = -640;
+                  translateX = -530;
                   rotate = -8;
-                  scale = 0.82;
+                  scale = 0.81;
                   zIndex = 10;
                   opacity = 0.35;
                   blurPx = 2;
                 } else {
-                  // HIDDEN OFF-SCREEN CARDS (offset >= 3 or <= -3)
-                  translateX = offset > 0 ? 940 : -940;
+                  // HIDDEN OFF-SCREEN CARDS
+                  translateX = offset > 0 ? 780 : -780;
                   rotate = offset > 0 ? 12 : -12;
                   scale = 0.7;
                   zIndex = 0;
@@ -246,10 +244,9 @@ export const WhatWeDoSection: React.FC = () => {
                   blurPx = 4;
                 }
 
-                // Hover focus override on specific card
                 if (isHovered) {
                   rotate = 0;
-                  scale = 1.08;
+                  scale = 1.05;
                   zIndex = 40;
                   opacity = 1;
                   blurPx = 0;
@@ -266,7 +263,7 @@ export const WhatWeDoSection: React.FC = () => {
                       setHoveredIndex(null);
                       setCenterIndex(sIndex);
                     }}
-                    className={`absolute w-[320px] h-[460px] rounded-2xl overflow-hidden cursor-pointer bg-[#1B231D] border ${borderColor} ${shadowClass} transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] transform-gpu`}
+                    className={`absolute w-[270px] lg:w-[285px] xl:w-[310px] h-[340px] lg:h-[355px] xl:h-[405px] rounded-2xl overflow-hidden cursor-pointer bg-[#1B231D] border ${borderColor} ${shadowClass} transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] transform-gpu`}
                     style={{
                       transform: `translateX(${translateX}px) rotate(${rotate}deg) scale(${scale})`,
                       zIndex,
@@ -291,26 +288,26 @@ export const WhatWeDoSection: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#161D18] via-[#161D18]/50 to-transparent" />
 
                     {/* Card Content Overlay */}
-                    <div className="relative z-20 p-8 h-full flex flex-col justify-between text-[#EDE8DF]">
+                    <div className="relative z-20 p-5 xl:p-7 h-full flex flex-col justify-between text-[#EDE8DF]">
                       <div className="flex items-center justify-between">
-                        <span className="font-serif text-2xl font-light text-[#C5A880]">
+                        <span className="font-serif text-xl xl:text-2xl font-light text-[#C5A880]">
                           0{sIndex + 1}
                         </span>
-                        <span className="rounded-full bg-[#161D18]/80 backdrop-blur-md px-3 py-1 font-sans text-[10px] font-bold tracking-widest text-[#EDE8DF] uppercase border border-[#EDE8DF]/15">
+                        <span className="rounded-full bg-[#161D18]/80 backdrop-blur-md px-2.5 py-0.5 font-sans text-[9px] xl:text-[10px] font-bold tracking-widest text-[#EDE8DF] uppercase border border-[#EDE8DF]/15">
                           {service.categoryGroup}
                         </span>
                       </div>
 
-                      <div className="space-y-3">
-                        <h3 className="font-serif text-2xl md:text-3xl font-normal text-[#EDE8DF]">
+                      <div className="space-y-1.5 xl:space-y-2.5">
+                        <h3 className="font-serif text-xl lg:text-2xl xl:text-3xl font-normal text-[#EDE8DF]">
                           {service.title}
                         </h3>
-                        <p className="font-sans text-xs text-[#EDE8DF]/85 leading-relaxed font-light">
+                        <p className="font-sans text-xs text-[#EDE8DF]/85 leading-relaxed font-light line-clamp-2 xl:line-clamp-none">
                           {service.shortDesc}
                         </p>
 
                         {isFocused && (
-                          <div className="pt-3 border-t border-[#EDE8DF]/20 flex items-center justify-between transition-opacity duration-500">
+                          <div className="pt-2 border-t border-[#EDE8DF]/20 flex items-center justify-between transition-opacity duration-500">
                             <span className="font-sans text-[10px] text-[#C5A880] uppercase tracking-widest font-semibold">
                               {service.typicalDuration}
                             </span>
@@ -331,7 +328,7 @@ export const WhatWeDoSection: React.FC = () => {
               })}
             </div>
 
-            {/* Mobile 3D Depth Tunnel Carousel (< 1024px, Scaled for One-Viewport Fit) */}
+            {/* Mobile 3D Depth Tunnel Carousel (< 1024px UNTOUCHED) */}
             <div className="lg:hidden relative w-full h-[285px] sm:h-[335px] flex items-center justify-center overflow-hidden [perspective:1000px] [transform-style:preserve-3d]">
               {SERVICES.map((service, sIndex) => {
                 let offset = sIndex - centerIndex;
@@ -356,7 +353,6 @@ export const WhatWeDoSection: React.FC = () => {
                   scale = isCenter ? 1 : 0.85;
                   opacity = Math.abs(offset) <= 1 ? 1 : 0;
                 } else if (offset === 0) {
-                  // CENTER CARD (Closest to viewer, sharp, front-facing)
                   translateX = 0;
                   translateZ = 0;
                   rotateY = 0;
@@ -366,7 +362,6 @@ export const WhatWeDoSection: React.FC = () => {
                   zIndex = 30;
                   borderColor = 'border-[#C5A880]/70';
                 } else if (offset === 1) {
-                  // IMMEDIATE RIGHT CARD (Recedes into screen, inner side closer, outer side farther)
                   translateX = 155;
                   translateZ = -120;
                   rotateY = -18;
@@ -375,7 +370,6 @@ export const WhatWeDoSection: React.FC = () => {
                   blurPx = 0.5;
                   zIndex = 20;
                 } else if (offset === -1) {
-                  // IMMEDIATE LEFT CARD (Recedes into screen, inner side closer, outer side farther)
                   translateX = -155;
                   translateZ = -120;
                   rotateY = 18;
@@ -384,7 +378,6 @@ export const WhatWeDoSection: React.FC = () => {
                   blurPx = 0.5;
                   zIndex = 20;
                 } else if (offset === 2) {
-                  // FAR RIGHT CARD
                   translateX = 260;
                   translateZ = -260;
                   rotateY = -30;
@@ -393,7 +386,6 @@ export const WhatWeDoSection: React.FC = () => {
                   blurPx = 2;
                   zIndex = 10;
                 } else if (offset === -2) {
-                  // FAR LEFT CARD
                   translateX = -260;
                   translateZ = -260;
                   rotateY = 30;
@@ -402,7 +394,6 @@ export const WhatWeDoSection: React.FC = () => {
                   blurPx = 2;
                   zIndex = 10;
                 } else {
-                  // HIDDEN OFF-SCREEN DEEP BACK
                   translateX = offset > 0 ? 350 : -350;
                   translateZ = -400;
                   rotateY = offset > 0 ? -38 : 38;
@@ -482,7 +473,7 @@ export const WhatWeDoSection: React.FC = () => {
           </div>
 
           {/* 3. CAROUSEL ARROW CONTROLS (Positioned Close Beneath Carousel) */}
-          <div className="relative z-50 flex items-center justify-center space-x-6 pb-1 pt-1">
+          <div className="relative z-50 flex items-center justify-center space-x-6 pb-1 pt-2 lg:pt-3">
             <button
               type="button"
               onClick={handlePrev}
