@@ -22,17 +22,17 @@ export const HomePage: React.FC = () => {
       {/* 3. "What We Do" Tilted Infinite Service Carousel & Compact Process Section */}
       <WhatWeDoSection />
 
-      {/* 4. Spatial Transformation Section */}
-      <section className="bg-[#161D18] text-[#EDE8DF] py-8 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10">
-        <div className="mx-auto max-w-7xl space-y-6 sm:space-y-10 lg:space-y-12">
-          <div className="space-y-1.5 sm:space-y-4">
+      {/* 4. Spatial Transformation Section (Balanced Desktop Single-Viewport Composition) */}
+      <section className="bg-[#161D18] text-[#EDE8DF] py-6 sm:py-12 lg:py-8 xl:py-10 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10 scroll-mt-24">
+        <div className="mx-auto max-w-7xl space-y-4 sm:space-y-6 lg:space-y-4">
+          <div className="space-y-1 sm:space-y-2 lg:space-y-1.5">
             <span className="font-sans text-[10px] sm:text-xs font-bold tracking-[0.3em] text-[#C5A880] uppercase">
               SPATIAL RECONFIGURATION
             </span>
-            <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-normal leading-tight text-[#EDE8DF]">
+            <h2 className="font-serif text-2xl sm:text-4xl lg:text-[2.25rem] xl:text-[2.65rem] font-normal leading-tight text-[#EDE8DF]">
               The Transformation
             </h2>
-            <p className="font-sans text-xs sm:text-base text-[#EDE8DF]/80 max-w-xl leading-relaxed font-light">
+            <p className="font-sans text-xs sm:text-sm lg:text-base text-[#EDE8DF]/80 max-w-xl leading-relaxed font-light">
               Drag or scroll to reveal how dark, enclosed structures are re-architected into light-filled, open living environments.
             </p>
           </div>

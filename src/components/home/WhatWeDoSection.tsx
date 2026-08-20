@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import { SERVICES } from '../../data/services';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 export const WhatWeDoSection: React.FC = () => {
+  const navigate = useNavigate();
   const prefersReducedMotion = useReducedMotion();
   const [centerIndex, setCenterIndex] = useState<number>(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -122,17 +123,17 @@ export const WhatWeDoSection: React.FC = () => {
   ];
 
   return (
-    <section id="what-we-do" ref={sectionRef} className="relative w-full bg-[#161D18] text-[#EDE8DF] py-6 sm:py-12 lg:py-7 xl:py-10 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10 overflow-hidden mb-12 sm:mb-16 lg:mb-0 scroll-mt-24">
+    <section id="what-we-do" ref={sectionRef} className="relative w-full bg-[#161D18] text-[#EDE8DF] py-6 sm:py-12 lg:py-8 xl:py-10 px-4 sm:px-6 lg:px-12 border-b border-[#EDE8DF]/10 overflow-hidden mb-12 sm:mb-16 lg:mb-0 scroll-mt-24">
       <div className="mx-auto max-w-7xl space-y-4 sm:space-y-8 lg:space-y-5">
         {/* 1. Dedicated WHAT WE DO Viewport Screen Container */}
         <div className="flex flex-col items-center justify-start h-auto space-y-2 sm:space-y-3 lg:space-y-3">
-          {/* 1A. DESKTOP HEADER (100% Below Navbar Clearance, Refined Proportional Scale for Laptops >= 1024px) */}
-          <div className="hidden lg:block text-center space-y-1 lg:space-y-1.5 max-w-3xl mx-auto pt-1 lg:pt-2">
+          {/* 1A. DESKTOP HEADER (100% Below Navbar Clearance, Calibrated Proportional Scale for Laptops >= 1024px) */}
+          <div className="hidden lg:block text-center space-y-1 lg:space-y-1.5 max-w-3xl mx-auto pt-1 lg:pt-1.5">
             <span className="inline-block font-sans text-[11px] lg:text-xs font-bold tracking-[0.25em] text-[#C5A880] uppercase mb-0.5">
               WHAT WE DO
             </span>
 
-            <h2 className="font-serif text-3xl lg:text-[2.15rem] xl:text-[2.65rem] font-normal leading-[1.08] text-[#EDE8DF]">
+            <h2 className="font-serif text-3xl lg:text-[1.85rem] xl:text-[2.35rem] font-normal leading-[1.1] text-[#EDE8DF]">
               Tailored renovation <br />
               solutions for every <br />
               <span className="italic text-[#C5A880]">home and lifestyle.</span>
@@ -162,12 +163,12 @@ export const WhatWeDoSection: React.FC = () => {
 
           {/* 2. PHYSICAL TILTED & SCALED INFINITE SERVICE-CARD CAROUSEL */}
           <div
-            className="relative w-full py-1 sm:py-2 lg:py-1.5 my-0.5 flex justify-center items-center select-none"
+            className="relative w-full py-1 sm:py-2 lg:py-2 my-0.5 flex justify-center items-center select-none"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
             {/* Desktop 7 Persistent Service Cards positioned around centerIndex */}
-            <div className="hidden lg:flex items-center justify-center min-h-[340px] lg:min-h-[355px] xl:min-h-[400px] w-full relative overflow-visible">
+            <div className="hidden lg:flex items-center justify-center min-h-[320px] lg:min-h-[335px] xl:min-h-[375px] w-full relative overflow-visible">
               {SERVICES.map((service, sIndex) => {
                 let offset = sIndex - centerIndex;
                 if (offset > 3) offset -= totalServices;
@@ -187,7 +188,7 @@ export const WhatWeDoSection: React.FC = () => {
                 let shadowClass = 'shadow-xl';
 
                 if (prefersReducedMotion) {
-                  translateX = offset * 285;
+                  translateX = offset * 270;
                   rotate = 0;
                   scale = isCenter ? 1.03 : 0.94;
                   opacity = Math.abs(offset) <= 2 ? 1 : 0;
@@ -203,7 +204,7 @@ export const WhatWeDoSection: React.FC = () => {
                   shadowClass = 'shadow-[0_25px_60px_rgba(0,0,0,0.7)]';
                 } else if (offset === 1) {
                   // IMMEDIATE RIGHT CARD
-                  translateX = 280;
+                  translateX = 265;
                   rotate = 4;
                   scale = 0.92;
                   zIndex = 20;
@@ -211,7 +212,7 @@ export const WhatWeDoSection: React.FC = () => {
                   blurPx = 0.5;
                 } else if (offset === -1) {
                   // IMMEDIATE LEFT CARD
-                  translateX = -280;
+                  translateX = -265;
                   rotate = -4;
                   scale = 0.92;
                   zIndex = 20;
@@ -219,7 +220,7 @@ export const WhatWeDoSection: React.FC = () => {
                   blurPx = 0.5;
                 } else if (offset === 2) {
                   // FAR RIGHT CARD
-                  translateX = 520;
+                  translateX = 490;
                   rotate = 8;
                   scale = 0.81;
                   zIndex = 10;
@@ -227,7 +228,7 @@ export const WhatWeDoSection: React.FC = () => {
                   blurPx = 2;
                 } else if (offset === -2) {
                   // FAR LEFT CARD
-                  translateX = -520;
+                  translateX = -490;
                   rotate = -8;
                   scale = 0.81;
                   zIndex = 10;
@@ -235,7 +236,7 @@ export const WhatWeDoSection: React.FC = () => {
                   blurPx = 2;
                 } else {
                   // HIDDEN OFF-SCREEN CARDS
-                  translateX = offset > 0 ? 760 : -760;
+                  translateX = offset > 0 ? 720 : -720;
                   rotate = offset > 0 ? 12 : -12;
                   scale = 0.7;
                   zIndex = 0;
@@ -260,9 +261,9 @@ export const WhatWeDoSection: React.FC = () => {
                     onMouseLeave={() => setHoveredIndex(null)}
                     onClick={() => {
                       setHoveredIndex(null);
-                      setCenterIndex(sIndex);
+                      navigate(`/services/${service.slug}`);
                     }}
-                    className={`absolute w-[265px] lg:w-[280px] xl:w-[305px] h-[330px] lg:h-[350px] xl:h-[395px] rounded-2xl overflow-hidden cursor-pointer bg-[#1B231D] border ${borderColor} ${shadowClass} transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] transform-gpu`}
+                    className={`absolute w-[255px] lg:w-[268px] xl:w-[290px] h-[315px] lg:h-[330px] xl:h-[370px] rounded-2xl overflow-hidden cursor-pointer bg-[#1B231D] border ${borderColor} ${shadowClass} transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] transform-gpu`}
                     style={{
                       transform: `translateX(${translateX}px) rotate(${rotate}deg) scale(${scale})`,
                       zIndex,
@@ -272,6 +273,8 @@ export const WhatWeDoSection: React.FC = () => {
                       transformOrigin: 'center center',
                       willChange: 'transform, opacity, filter',
                     }}
+                    data-cursor="hover"
+                    data-cursor-text="EXPLORE"
                   >
                     {/* Background Architectural Image */}
                     <img
@@ -287,7 +290,7 @@ export const WhatWeDoSection: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#161D18] via-[#161D18]/50 to-transparent" />
 
                     {/* Card Content Overlay */}
-                    <div className="relative z-20 p-5 xl:p-7 h-full flex flex-col justify-between text-[#EDE8DF]">
+                    <div className="relative z-20 p-5 xl:p-6 h-full flex flex-col justify-between text-[#EDE8DF]">
                       <div className="flex items-center justify-between">
                         <span className="font-serif text-xl xl:text-2xl font-light text-[#C5A880]">
                           0{sIndex + 1}
@@ -310,14 +313,10 @@ export const WhatWeDoSection: React.FC = () => {
                             <span className="font-sans text-[10px] text-[#C5A880] uppercase tracking-widest font-semibold">
                               {service.typicalDuration}
                             </span>
-                            <Link
-                              to={`/services/${service.slug}`}
-                              onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center space-x-1 font-sans text-[11px] font-bold tracking-wider uppercase text-[#C5A880] hover:text-[#EDE8DF]"
-                            >
+                            <span className="inline-flex items-center space-x-1 font-sans text-[11px] font-bold tracking-wider uppercase text-[#C5A880] group-hover:text-[#EDE8DF]">
                               <span>Explore</span>
                               <ArrowUpRight className="h-3.5 w-3.5" />
-                            </Link>
+                            </span>
                           </div>
                         )}
                       </div>
@@ -405,7 +404,7 @@ export const WhatWeDoSection: React.FC = () => {
                 return (
                   <div
                     key={service.id}
-                    onClick={() => setCenterIndex(sIndex)}
+                    onClick={() => navigate(`/services/${service.slug}`)}
                     className={`absolute w-[220px] sm:w-[260px] h-[280px] sm:h-[330px] rounded-2xl overflow-hidden cursor-pointer bg-[#1B231D] border ${borderColor} shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] transform-gpu`}
                     style={{
                       transform: `translate3d(${translateX}px, 0px, ${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
@@ -453,14 +452,10 @@ export const WhatWeDoSection: React.FC = () => {
                             <span className="font-sans text-[9px] text-[#C5A880] uppercase tracking-widest font-semibold">
                               {service.typicalDuration}
                             </span>
-                            <Link
-                              to={`/services/${service.slug}`}
-                              onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center space-x-1 font-sans text-[9px] font-bold tracking-wider uppercase text-[#C5A880] hover:text-[#EDE8DF]"
-                            >
+                            <span className="inline-flex items-center space-x-1 font-sans text-[9px] font-bold tracking-wider uppercase text-[#C5A880]">
                               <span>Explore</span>
                               <ArrowUpRight className="h-3 w-3" />
-                            </Link>
+                            </span>
                           </div>
                         )}
                       </div>
@@ -472,7 +467,7 @@ export const WhatWeDoSection: React.FC = () => {
           </div>
 
           {/* 3. CAROUSEL ARROW CONTROLS */}
-          <div className="relative z-50 flex items-center justify-center space-x-6 pb-1 pt-1 lg:pt-2">
+          <div className="relative z-50 flex items-center justify-center space-x-6 pb-1 pt-1.5 lg:pt-2.5">
             <button
               type="button"
               onClick={handlePrev}

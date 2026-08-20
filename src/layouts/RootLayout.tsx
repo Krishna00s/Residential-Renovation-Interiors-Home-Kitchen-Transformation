@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useLocation, Outlet } from 'react-router-dom';
+import { useLocation, useNavigationType, Outlet } from 'react-router-dom';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const RootLayout: React.FC = () => {
   const location = useLocation();
+  const navigationType = useNavigationType();
   const lenisRef = useRef<Lenis | null>(null);
 
   // Initialize Lenis Smooth Scroll Engine & Sync with GSAP Ticker
@@ -24,8 +25,11 @@ export const RootLayout: React.FC = () => {
     });
     lenisRef.current = lenis;
 
-    // Connect Lenis scroll to ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
+    // Connect Lenis scroll to ScrollTrigger and store current scroll position
+    lenis.on('scroll', (e: { scroll: number }) => {
+      ScrollTrigger.update();
+      sessionStorage.setItem(`scroll_pos_${window.location.pathname}`, Math.round(e.scroll).toString());
+    });
 
     // Frame-synchronized ticker
     const updateTick = (time: number) => {
@@ -41,20 +45,40 @@ export const RootLayout: React.FC = () => {
     };
   }, []);
 
-  // Reset scroll and refresh ScrollTrigger on route transition
+  // Listen for raw scroll events to ensure scroll position is saved
   useEffect(() => {
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true });
+    const handleScroll = () => {
+      sessionStorage.setItem(`scroll_pos_${location.pathname}`, Math.round(window.scrollY).toString());
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [location.pathname]);
+
+  // Handle scroll behavior on route transitions: restore scroll on POP (Back/Forward), top on PUSH
+  useEffect(() => {
+    if (navigationType === 'POP') {
+      const savedPos = sessionStorage.getItem(`scroll_pos_${location.pathname}`);
+      const targetY = savedPos ? parseInt(savedPos, 10) : 0;
+
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(targetY, { immediate: true });
+      } else {
+        window.scrollTo(0, targetY);
+      }
     } else {
-      window.scrollTo(0, 0);
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo(0, 0);
+      }
     }
 
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 100);
+    }, 150);
 
     return () => clearTimeout(timer);
-  }, [location.pathname]);
+  }, [location.pathname, navigationType]);
 
   return (
     <div className="relative min-h-screen bg-[#161D18] text-[#EDE8DF] font-sans antialiased selection:bg-[#C5A880] selection:text-[#161D18]">
