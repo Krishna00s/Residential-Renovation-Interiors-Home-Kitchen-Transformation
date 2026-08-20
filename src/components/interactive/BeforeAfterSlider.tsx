@@ -107,17 +107,17 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
       data-cursor-text="SLIDE"
     >
       {/* Header Overlay Tag */}
-      <div className="absolute top-6 left-6 right-6 z-30 flex items-center justify-between pointer-events-none">
-        <span className="font-sans text-[10px] font-bold tracking-[0.25em] text-[#EDE8DF] uppercase bg-[#161D18]/80 backdrop-blur-md px-4 py-1.5 rounded-full border border-[#EDE8DF]/15">
+      <div className="absolute top-4 sm:top-6 left-4 sm:left-6 right-4 sm:right-6 z-30 flex items-center justify-between pointer-events-none">
+        <span className="font-sans text-[9px] sm:text-[10px] font-bold tracking-[0.25em] text-[#EDE8DF] uppercase bg-[#161D18]/80 backdrop-blur-md px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-[#EDE8DF]/15">
           {subtitle}
         </span>
-        <span className="font-serif text-sm font-medium text-[#EDE8DF] hidden md:inline bg-[#161D18]/80 backdrop-blur-md px-4 py-1.5 rounded-full border border-[#EDE8DF]/15">
+        <span className="font-serif text-xs sm:text-sm font-medium text-[#EDE8DF] hidden md:inline bg-[#161D18]/80 backdrop-blur-md px-4 py-1.5 rounded-full border border-[#EDE8DF]/15">
           {title}
         </span>
       </div>
 
       {/* BEFORE Layer (Base Image) */}
-      <div className="relative w-full h-[50vh] md:h-[70vh] min-h-[420px]">
+      <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[350px] xl:h-[410px] min-h-[280px]">
         <img
           src={beforeImage.src}
           alt={beforeImage.alt}
@@ -125,7 +125,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
           loading="lazy"
         />
         {/* BEFORE Badge */}
-        <span className="absolute bottom-6 left-6 z-10 font-sans text-xs font-bold tracking-widest text-[#EDE8DF] bg-[#161D18]/85 backdrop-blur-md px-4 py-2 rounded-full border border-[#EDE8DF]/15 uppercase">
+        <span className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 z-10 font-sans text-[10px] sm:text-xs font-bold tracking-widest text-[#EDE8DF] bg-[#161D18]/85 backdrop-blur-md px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-[#EDE8DF]/15 uppercase">
           BEFORE — ORIGINAL
         </span>
       </div>
@@ -147,7 +147,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
           loading="lazy"
         />
         {/* AFTER Badge */}
-        <span className="absolute bottom-6 right-6 z-10 font-sans text-xs font-bold tracking-widest text-[#161D18] bg-[#C5A880] px-4 py-2 rounded-full font-bold uppercase shadow-lg">
+        <span className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 z-10 font-sans text-[10px] sm:text-xs font-bold tracking-widest text-[#161D18] bg-[#C5A880] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold uppercase shadow-lg">
           AFTER — COMPLETED
         </span>
       </div>
@@ -166,9 +166,9 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
           className="absolute top-0 bottom-0 z-30 w-1 cursor-ew-resize bg-[#EDE8DF] shadow-[0_0_15px_rgba(0,0,0,0.5)] touch-none"
           style={{ left: `${sliderPosition}%` }}
         >
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#EDE8DF] bg-[#161D18] text-[#EDE8DF] shadow-xl transition-transform hover:scale-110 active:scale-95">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border-2 border-[#EDE8DF] bg-[#161D18] text-[#EDE8DF] shadow-xl transition-transform hover:scale-110 active:scale-95">
             <svg
-              className="h-5 w-5 fill-current text-[#C5A880]"
+              className="h-4 w-4 sm:h-5 sm:w-5 fill-current text-[#C5A880]"
               viewBox="0 0 24 24"
             >
               <path d="M8.5 6L3.5 12L8.5 18M15.5 6L20.5 12L15.5 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
