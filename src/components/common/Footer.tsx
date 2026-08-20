@@ -107,7 +107,9 @@ export const Footer: React.FC = () => {
             </h3>
             <div className="space-y-2 font-sans text-xs text-[#8E877D] leading-relaxed">
               <p>{COMPANY_INFO.address}</p>
-              <p>{COMPANY_INFO.phone}</p>
+              <p>
+                <a href="tel:+919693821174" className="hover:text-[#EDE8DF] transition-colors">{COMPANY_INFO.phone}</a>
+              </p>
               <p className="text-[#EDE8DF] underline decoration-[#C5A880]/50 underline-offset-4">{COMPANY_INFO.email}</p>
             </div>
           </div>
@@ -117,7 +119,7 @@ export const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-[#EDE8DF]/10 text-[11px] font-sans text-[#8E877D] space-y-3 md:space-y-0">
           <p>© {new Date().getFullYear()} {COMPANY_INFO.name} Renovations &amp; Architecture Ltd.</p>
           <div className="flex items-center space-x-4">
-            <span>Dublin, Ireland</span>
+            <span>Bengaluru, Karnataka, India</span>
             <span>•</span>
             <span>Commercial Demo Concept</span>
           </div>
